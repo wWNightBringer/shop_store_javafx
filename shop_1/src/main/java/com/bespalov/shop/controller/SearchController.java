@@ -2,6 +2,7 @@ package com.bespalov.shop.controller;
 
 import com.bespalov.shop.config.ProductData;
 import com.bespalov.shop.model.Product;
+import com.bespalov.shop.pane.InformtablePane;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
@@ -11,26 +12,31 @@ import javafx.stage.Stage;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 
 public class SearchController {
     @FXML
     private TextField title;
 
+    private InformtablePane informtablePane;
     private Stage dialogStage;
     private Product product;
     public boolean isOk = false;
 
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
+        informtablePane = new InformtablePane(dialogStage);
     }
 
     @FXML
-    private void isOK(javafx.scene.input.KeyEvent event) {
+    private void isOK(javafx.scene.input.KeyEvent event) throws IOException {
         if (KeyCode.ENTER == event.getCode()) {
             if (validData()) {
                 for (Product p : ProductData.getProductList()) {
                     if (p.getTitle().equalsIgnoreCase(title.getText())) {
                         product = p;
+                        informtablePane.setProduct(product);
+                        informtablePane.showInformtable();
                         isOk = true;
                         break;
                     }

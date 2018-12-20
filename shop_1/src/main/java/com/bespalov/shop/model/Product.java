@@ -1,19 +1,27 @@
 package com.bespalov.shop.model;
 
+import com.bespalov.shop.util.LocalDateAdapter;
 import com.sun.istack.internal.NotNull;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.time.LocalDate;
 import java.util.Date;
 
+@XmlType(name = "oneProduct")
 public class Product {
     @NotNull
     private StringProperty title;
     @NotNull
     private ObjectProperty<LocalDate> incomingDate;
+
+    private int idProduct;
+    private int shopId;
     @NotNull
     private StringProperty serialNumber;
     @NotNull
@@ -33,7 +41,7 @@ public class Product {
         this.condition = new SimpleStringProperty(condition);
     }
 
-
+    @XmlElement(name = "title")
     public String getTitle() {
         return title.get();
     }
@@ -46,6 +54,8 @@ public class Product {
         this.title.set(title);
     }
 
+    @XmlElement(name = "incomingDate")
+    @XmlJavaTypeAdapter(LocalDateAdapter.class)
     public LocalDate getIncomingDate() {
         return incomingDate.get();
     }
@@ -58,6 +68,7 @@ public class Product {
         this.incomingDate.set(incomingDate);
     }
 
+    @XmlElement(name = "serialNumber")
     public String getSerialNumber() {
         return serialNumber.get();
     }
@@ -70,6 +81,7 @@ public class Product {
         this.serialNumber.set(serialNumber);
     }
 
+    @XmlElement(name = "count")
     public String getCount() {
         return count.get();
     }
@@ -82,6 +94,7 @@ public class Product {
         this.count.set(count);
     }
 
+    @XmlElement(name = "condition")
     public String getCondition() {
         return condition.get();
     }
@@ -92,6 +105,22 @@ public class Product {
 
     public void setCondition(String condition) {
         this.condition.set(condition);
+    }
+
+    public int getIdProduct() {
+        return idProduct;
+    }
+
+    public void setIdProduct(int idProduct) {
+        this.idProduct = idProduct;
+    }
+
+    public int getShopId() {
+        return shopId;
+    }
+
+    public void setShopId(int shopId) {
+        this.shopId = shopId;
     }
 
     @Override
