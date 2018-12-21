@@ -1,10 +1,12 @@
 package com.bespalov.shop.controller;
 
+import com.bespalov.shop.config.Languages;
 import com.bespalov.shop.config.ProductData;
 import com.bespalov.shop.model.Product;
 import com.bespalov.shop.pane.InformtablePane;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Modality;
@@ -17,6 +19,8 @@ import java.io.IOException;
 public class SearchController {
     @FXML
     private TextField title;
+    @FXML
+    private Label titleLabel;
 
     private InformtablePane informtablePane;
     private Stage dialogStage;
@@ -26,6 +30,7 @@ public class SearchController {
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
         informtablePane = new InformtablePane(dialogStage);
+        titleLabel.setText(Languages.getResourceBundle().getString("enter_title"));
     }
 
     @FXML

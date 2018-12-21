@@ -1,6 +1,7 @@
 package com.bespalov.shop.pane;
 
 import com.bespalov.shop.MainClass;
+import com.bespalov.shop.config.Languages;
 import com.bespalov.shop.controller.ProductUpdateDialogController;
 import com.bespalov.shop.model.Product;
 import javafx.fxml.FXMLLoader;
@@ -24,7 +25,7 @@ public class EditProductPane {
         loader.setLocation(getClass().getResource("/view/dialog_window/ProductUpdateOverview.fxml"));
         AnchorPane anchorPane = loader.load();
         Stage dialogStage = new Stage();
-        dialogStage.setTitle("Edit product");
+        dialogStage.setTitle(Languages.getResourceBundle().getString("update"));
         dialogStage.initModality(Modality.WINDOW_MODAL);
         dialogStage.initOwner(stage);
         Scene scene = new Scene(anchorPane);

@@ -5,26 +5,22 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane onKeyPressed="#pressClose" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-            minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/10.0.1"
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            onKeyPressed="#pressClose" prefHeight="900.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.121"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bespalov.shop.controller.RootController">
     <top>
         <MenuBar prefWidth="1000.0" BorderPane.alignment="CENTER">
             <menus>
-                <Menu mnemonicParsing="false" text="File">
+                <Menu fx:id="file" mnemonicParsing="false" text="File">
                     <items>
-                        <MenuItem onAction="#handleNew" mnemonicParsing="false" text="New"/>
-                        <MenuItem onAction="#close" mnemonicParsing="false" text="Exit"/>
+                        <MenuItem fx:id="newItem" mnemonicParsing="false" onAction="#handleNew" text="New"/>
+                        <MenuItem fx:id="close" mnemonicParsing="false" onAction="#close" text="Exit"/>
                     </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="Edit">
+                <Menu fx:id="help" mnemonicParsing="false" text="Help">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="Delete"/>
-                    </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Help">
-                    <items>
-                        <MenuItem onAction="#handleAbout" mnemonicParsing="false" text="About"/>
+                        <MenuItem fx:id="about" mnemonicParsing="false" onAction="#handleAbout" text="About"/>
+                        <MenuItem fx:id="statistic" mnemonicParsing="false" text="Statistic"/>
                     </items>
                 </Menu>
             </menus>

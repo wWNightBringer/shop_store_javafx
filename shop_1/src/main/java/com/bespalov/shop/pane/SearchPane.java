@@ -1,5 +1,6 @@
 package com.bespalov.shop.pane;
 
+import com.bespalov.shop.config.Languages;
 import com.bespalov.shop.controller.ProductUpdateDialogController;
 import com.bespalov.shop.controller.SearchController;
 import javafx.fxml.FXMLLoader;
@@ -22,7 +23,7 @@ public class SearchPane {
         loader.setLocation(getClass().getResource("/view/dialog_window/SearchOverview.fxml"));
         AnchorPane anchorPane = loader.load();
         Stage dialogStage = new Stage();
-        dialogStage.setTitle("Edit product");
+        dialogStage.setTitle(Languages.getResourceBundle().getString("search"));
         dialogStage.initModality(Modality.WINDOW_MODAL);
         dialogStage.initOwner(stage);
         Scene scene = new Scene(anchorPane);

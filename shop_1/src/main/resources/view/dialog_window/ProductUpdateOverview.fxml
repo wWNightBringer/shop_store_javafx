@@ -28,7 +28,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <Label prefHeight="18.0" prefWidth="48.0" text="Title: ">
+                <Label fx:id="titleName" prefHeight="18.0" prefWidth="48.0" text="Title: ">
                     <font>
                         <Font name="Georgia Italic" size="14.0" />
                     </font>
@@ -36,7 +36,7 @@
                         <Insets left="20.0" />
                     </GridPane.margin>
                 </Label>
-                <Label text="Serial number: " GridPane.rowIndex="2">
+                <Label fx:id="serialNumberName" text="Serial number: " GridPane.rowIndex="2">
                     <font>
                         <Font name="Georgia Italic" size="14.0" />
                     </font>
@@ -44,7 +44,7 @@
                         <Insets left="20.0" />
                     </GridPane.margin>
                 </Label>
-                <Label text="Count: " GridPane.rowIndex="3">
+                <Label fx:id="countName" text="Count: " GridPane.rowIndex="3">
                     <font>
                         <Font name="Georgia Italic" size="14.0" />
                     </font>
@@ -52,7 +52,7 @@
                         <Insets left="20.0" />
                     </GridPane.margin>
                 </Label>
-                <Label text="Condition: " GridPane.rowIndex="4">
+                <Label fx:id="conditionName" text="Condition: " GridPane.rowIndex="4">
                     <font>
                         <Font name="Georgia Italic" size="14.0" />
                     </font>
@@ -80,7 +80,7 @@
                         <Insets right="10.0" />
                     </GridPane.margin>
                 </TextField>
-                <Label text="Incoming date:" GridPane.rowIndex="1">
+                <Label fx:id="incomingDateName" text="Incoming date:" GridPane.rowIndex="1">
                     <font>
                         <Font name="Georgia Italic" size="14.0" />
                     </font>
@@ -92,7 +92,7 @@
                <children>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Label text="Year: ">
+                        <Label fx:id="yearName" text="Year: ">
                            <font>
                               <Font name="Corbel" size="14.0" />
                            </font>
@@ -109,7 +109,7 @@
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Label text="Month:">
+                        <Label fx:id="monthName" text="Month:">
                            <font>
                               <Font name="Corbel" size="14.0" />
                            </font>
@@ -123,7 +123,7 @@
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Label text="Day:">
+                        <Label fx:id="dayName" text="Day:">
                            <font>
                               <Font name="Corbel" size="14.0" />
                            </font>

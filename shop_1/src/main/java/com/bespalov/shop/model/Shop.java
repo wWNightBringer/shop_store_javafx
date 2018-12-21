@@ -1,4 +1,6 @@
 package com.bespalov.shop.model;
 
-public class Shop {
+import com.bespalov.shop.repository.ShopStoreRepository;
+
+public class Shop implements ShopStoreRepository{
 }

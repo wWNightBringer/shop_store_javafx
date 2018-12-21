@@ -1,5 +1,6 @@
 package com.bespalov.shop.model;
 
+import com.bespalov.shop.repository.ShopStoreRepository;
 import com.bespalov.shop.util.LocalDateAdapter;
 import com.sun.istack.internal.NotNull;
 import javafx.beans.property.ObjectProperty;
@@ -14,7 +15,7 @@ import java.time.LocalDate;
 import java.util.Date;
 
 @XmlType(name = "oneProduct")
-public class Product {
+public class Product implements ShopStoreRepository {
     @NotNull
     private StringProperty title;
     @NotNull

@@ -24,7 +24,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <Label text="Title: ">
+                <Label fx:id="titleName" text="Title: ">
                     <font>
                         <Font name="Georgia" size="15.0" />
                     </font>
@@ -32,7 +32,7 @@
                         <Insets left="20.0" />
                     </GridPane.margin>
                 </Label>
-                <Label text="Incoming date: " GridPane.rowIndex="1">
+                <Label fx:id="incomingDateName" text="Incoming date: " GridPane.rowIndex="1">
                     <font>
                         <Font name="Georgia" size="15.0" />
                     </font>
@@ -40,7 +40,7 @@
                         <Insets left="20.0" />
                     </GridPane.margin>
                 </Label>
-                <Label text="Serial number: " GridPane.rowIndex="2">
+                <Label fx:id="serialNumberName" text="Serial number: " GridPane.rowIndex="2">
                     <font>
                         <Font name="Georgia" size="15.0" />
                     </font>
@@ -48,7 +48,7 @@
                         <Insets left="20.0" />
                     </GridPane.margin>
                 </Label>
-                <Label text="Count: " GridPane.rowIndex="3">
+                <Label fx:id="countName" text="Count: " GridPane.rowIndex="3">
                     <font>
                         <Font name="Georgia" size="15.0" />
                     </font>
@@ -56,7 +56,7 @@
                         <Insets left="20.0" />
                     </GridPane.margin>
                 </Label>
-                <Label text="Condition: " GridPane.rowIndex="4">
+                <Label fx:id="conditionName" text="Condition: " GridPane.rowIndex="4">
                     <font>
                         <Font name="Georgia" size="15.0" />
                     </font>
@@ -66,27 +66,27 @@
                 </Label>
                 <Label fx:id="title" GridPane.columnIndex="1">
                     <font>
-                        <Font name="Ink Free" size="15.0" />
+                        <Font name="Georgia" size="15.0" />
                     </font>
                 </Label>
                 <Label fx:id="incomingDate" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <font>
-                        <Font name="Ink Free" size="15.0" />
+                        <Font name="Georgia" size="15.0" />
                     </font>
                 </Label>
                 <Label fx:id="serialNumber" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2">
                     <font>
-                        <Font name="Ink Free" size="15.0" />
+                        <Font name="Georgia" size="15.0" />
                     </font>
                 </Label>
                 <Label fx:id="count" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3">
                     <font>
-                        <Font name="Ink Free" size="15.0" />
+                        <Font name="Georgia" size="15.0" />
                     </font>
                 </Label>
                 <Label fx:id="condition" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4">
                     <font>
-                        <Font name="Ink Free" size="15.0" />
+                        <Font name="Georgia" size="15.0" />
                     </font>
                 </Label>
             </children>

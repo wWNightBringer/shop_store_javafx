@@ -2,6 +2,7 @@ package com.bespalov.shop;
 
 import com.bespalov.shop.client.Client;
 import com.bespalov.shop.config.JAXBInit;
+import com.bespalov.shop.config.Languages;
 import com.bespalov.shop.controller.RootController;
 import com.bespalov.shop.model.Product;
 import com.bespalov.shop.pane.MainPane;
@@ -16,17 +17,16 @@ import javafx.stage.Stage;
 import javax.xml.bind.JAXBException;
 import java.io.IOException;
 import java.net.Socket;
+import java.time.LocalDate;
 
 public class MainClass extends Application {
     private Stage primaryStage;
     private BorderPane borderPane;
     private MainPane mainPane;
 
-    public MainClass() throws JAXBException, IOException {
-        JAXBInit init = new JAXBInit();
-        init.saveProcuctInSystem();
-        mainPane = new MainPane(primaryStage);
 
+    public MainClass() throws JAXBException, IOException {
+        mainPane = new MainPane(primaryStage);
     }
 
     public static void main(String[] args) {
@@ -36,7 +36,7 @@ public class MainClass extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         this.primaryStage = primaryStage;
-        primaryStage.setTitle("Shop");
+        primaryStage.setTitle(Languages.getResourceBundle().getString("shop"));
         initStagePane();
         mainPane.initMainPane(borderPane);
         primaryStage.show();

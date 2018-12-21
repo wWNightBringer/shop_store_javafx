@@ -1,5 +1,6 @@
 package com.bespalov.shop.controller;
 
+import com.bespalov.shop.config.Languages;
 import com.bespalov.shop.model.Product;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -18,14 +19,27 @@ public class InformtableController {
     private Label count;
     @FXML
     private Label condition;
+    @FXML
+    private Label titleName;
+    @FXML
+    private Label incomingDateName;
+    @FXML
+    private Label serialNumberName;
+    @FXML
+    private Label countName;
+    @FXML
+    private Label conditionName;
 
     private Stage dialogStage;
     private Product product;
 
     @FXML
     public void initialize() {
-        System.out.println(product);
-
+        titleName.setText(Languages.getResourceBundle().getString("title"));
+        incomingDateName.setText(Languages.getResourceBundle().getString("incomingDate"));
+        serialNumberName.setText(Languages.getResourceBundle().getString("serialNumber"));
+        countName.setText(Languages.getResourceBundle().getString("count"));
+        conditionName.setText(Languages.getResourceBundle().getString("condition"));
     }
 
     @FXML

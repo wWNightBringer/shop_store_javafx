@@ -11,7 +11,7 @@
    <children>
       <HBox layoutX="110.0" layoutY="-20.0" prefHeight="150.0" prefWidth="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label alignment="CENTER" text="Enter title:">
+            <Label fx:id="titleLabel" alignment="CENTER" text="Enter title:">
                <font>
                   <Font name="Consolas Italic" size="14.0" />
                </font>

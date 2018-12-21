@@ -1,12 +1,14 @@
 package com.bespalov.shop.controller;
 
 import com.bespalov.shop.calendar.CalendatInit;
+import com.bespalov.shop.config.Languages;
 import com.bespalov.shop.model.Product;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -27,8 +29,22 @@ public class ProductUpdateDialogController {
     private TextField count;
     @FXML
     private TextField condition;
-
-
+    @FXML
+    private Label titleName;
+    @FXML
+    private Label incomingDateName;
+    @FXML
+    private Label serialNumberName;
+    @FXML
+    private Label countName;
+    @FXML
+    private Label conditionName;
+    @FXML
+    private Label yearName;
+    @FXML
+    private Label monthName;
+    @FXML
+    private Label dayName;
     private Stage dialogStage;
     private Product product;
     private boolean okClick = false;
@@ -46,6 +62,14 @@ public class ProductUpdateDialogController {
         month.setItems(calendatInit.getListMonth());
         day.setValue(1);
         day.setItems(calendatInit.getListDay());
+        monthName.setText(Languages.getResourceBundle().getString("month"));
+        yearName.setText(Languages.getResourceBundle().getString("year"));
+        dayName.setText(Languages.getResourceBundle().getString("day"));
+        titleName.setText(Languages.getResourceBundle().getString("title"));
+        incomingDateName.setText(Languages.getResourceBundle().getString("incomingDate"));
+        serialNumberName.setText(Languages.getResourceBundle().getString("serialNumber"));
+        countName.setText(Languages.getResourceBundle().getString("count"));
+        conditionName.setText(Languages.getResourceBundle().getString("condition"));
     }
 
     public Stage getDialogStage() {
