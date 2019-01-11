@@ -5,6 +5,7 @@ import com.bespalov.shop.model.Product;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import javax.swing.*;
 import javax.xml.bind.JAXBException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -13,6 +14,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+//TODO product list
 public class ProductData {
     private static ObservableList<Product> productList;
     private static Client client;
@@ -24,16 +26,19 @@ public class ProductData {
             client = new Client("192.168.0.111", 9000);
             jaxbInit = new JAXBInit();
             client.getDataForTable();
-        } catch (IOException  e) {
+
+
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public ProductData() throws JAXBException {
         for (Product product : jaxbInit.responseData(client.getInputData()).getProductList()) {
-            productList.add(new Product(product.getTitle(), product.getIncomingDate(), product.getSerialNumber(),
+            productList.add(new Product(product.getIdProduct(), product.getTitle(), product.getIncomingDate(), product.getSerialNumber(),
                     Integer.valueOf(product.getCount()), product.getCondition()));
         }
+
     }
 
     public static ObservableList<Product> getProductList() {

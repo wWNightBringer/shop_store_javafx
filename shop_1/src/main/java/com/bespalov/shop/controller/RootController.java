@@ -1,9 +1,11 @@
 package com.bespalov.shop.controller;
 
+import com.bespalov.shop.client.Client;
 import com.bespalov.shop.config.JAXBInit;
 import com.bespalov.shop.config.Languages;
 import com.bespalov.shop.config.Paths;
 import com.bespalov.shop.config.ProductData;
+import com.bespalov.shop.pane.StatisticPane;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Menu;
@@ -28,17 +30,26 @@ public class RootController {
     @FXML
     private MenuItem about;
     @FXML
+    private MenuItem back;
+    @FXML
+    private MenuItem save;
+    @FXML
     private Menu file;
     @FXML
     private Menu help;
 
-
+    private StatisticPane statisticPane;
     private Stage stage;
     private Paths paths;
+    private Client client;
+    private final String host = "192.168.0.111";
+    private final int port = 9000;
 
     @FXML
     private void initialize() {
-        newItem.setText(Languages.getResourceBundle().getString("menuItem.new"));
+        //newItem.setText(Languages.getResourceBundle().getString("menuItem.new"));
+        save.setText(Languages.getResourceBundle().getString("save"));
+        back.setText(Languages.getResourceBundle().getString("back"));
         close.setText(Languages.getResourceBundle().getString("menuItem.close"));
         statistic.setText(Languages.getResourceBundle().getString("menuItem.statistic"));
         about.setText(Languages.getResourceBundle().getString("menuItem.about"));
@@ -49,12 +60,25 @@ public class RootController {
     public void setStage(Stage stage) {
         this.stage = stage;
         paths = new Paths(stage);
+        statisticPane = new StatisticPane(stage);
     }
 
     @FXML
     private void handleNew() {
         ProductData.getProductList().clear();
         paths.setPathFile(null);
+    }
+
+    @FXML
+    private void handleBack() throws IOException, JAXBException, InterruptedException {
+        client = new Client(host, port);
+        client.actionToDatabase(null, "Back");
+    }
+
+    @FXML
+    private void handleSave() throws InterruptedException, JAXBException, IOException {
+        client = new Client(host, port);
+        client.actionToDatabase(null, "Save");
     }
 
     @FXML
@@ -75,5 +99,10 @@ public class RootController {
     private void pressClose(KeyEvent keyEvent) {
         if (KeyCode.ESCAPE == keyEvent.getCode())
             System.exit(0);
+    }
+
+    @FXML
+    private void handleStatistic() throws IOException {
+        statisticPane.showStatistic();
     }
 }

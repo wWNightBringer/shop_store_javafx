@@ -1,24 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <product_wrapper>
     <product>
-        <condition>Has</condition>
-        <count>2</count>
-        <incomingDate>2017-05-12</incomingDate>
-        <serialNumber>TV112312</serialNumber>
-        <title>TV_LG_1123</title>
-    </product>
-    <product>
-        <condition>Progress</condition>
-        <count>1</count>
-        <incomingDate>2018-12-20</incomingDate>
-        <serialNumber>PN456412</serialNumber>
-        <title>Phone_Nokia_4564</title>
-    </product>
-    <product>
-        <condition>Has</condition>
-        <count>5</count>
-        <incomingDate>2018-12-20</incomingDate>
-        <serialNumber>IR678512</serialNumber>
-        <title>Iron_Philips_6785</title>
+        <productList>
+            <condition>Has</condition>
+            <count>1</count>
+            <idProduct>0</idProduct>
+            <incomingDate>2015-03-15</incomingDate>
+            <serialNumber>Andrew123asd</serialNumber>
+            <shopId>0</shopId>
+            <title>Bes</title>
+        </productList>
     </product>
 </product_wrapper>

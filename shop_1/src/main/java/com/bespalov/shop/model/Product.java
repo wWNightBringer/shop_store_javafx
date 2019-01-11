@@ -2,6 +2,7 @@ package com.bespalov.shop.model;
 
 import com.bespalov.shop.repository.ShopStoreRepository;
 import com.bespalov.shop.util.LocalDateAdapter;
+import com.bespalov.shop.validates.repository.ValidatorAnnotation;
 import com.sun.istack.internal.NotNull;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -12,7 +13,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.time.LocalDate;
-import java.util.Date;
 
 @XmlType(name = "oneProduct")
 public class Product implements ShopStoreRepository {
@@ -20,7 +20,7 @@ public class Product implements ShopStoreRepository {
     private StringProperty title;
     @NotNull
     private ObjectProperty<LocalDate> incomingDate;
-
+    @NotNull
     private int idProduct;
     private int shopId;
     @NotNull
@@ -31,10 +31,11 @@ public class Product implements ShopStoreRepository {
     private StringProperty condition;
 
     public Product() {
-        this("", LocalDate.now(), null, 0, null);
+        this(0, "", LocalDate.now(), null, 0, null);
     }
 
-    public Product(String title, LocalDate incomingDate, String serialNumber, int count, String condition) {
+    public Product(int idProduct, String title, LocalDate incomingDate, String serialNumber, int count, String condition) {
+        this.idProduct = idProduct;
         this.title = new SimpleStringProperty(title);
         this.incomingDate = new SimpleObjectProperty<>(incomingDate);
         this.serialNumber = new SimpleStringProperty(serialNumber);
@@ -65,6 +66,7 @@ public class Product implements ShopStoreRepository {
         return incomingDate;
     }
 
+
     public void setIncomingDate(LocalDate incomingDate) {
         this.incomingDate.set(incomingDate);
     }
@@ -91,8 +93,13 @@ public class Product implements ShopStoreRepository {
         return count;
     }
 
+
     public void setCount(String count) {
-        this.count.set(count);
+        if (Integer.parseInt(count) > 0 && Integer.parseInt(count) < 10000) {
+            this.count.set(count);
+        } else
+            this.count = null;
+
     }
 
     @XmlElement(name = "condition")
@@ -134,4 +141,5 @@ public class Product implements ShopStoreRepository {
                 ", Condition='" + condition + '\'' +
                 '}';
     }
+
 }

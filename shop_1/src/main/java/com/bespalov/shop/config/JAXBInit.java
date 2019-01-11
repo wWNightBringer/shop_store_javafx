@@ -15,17 +15,30 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class JAXBInit {
+    private Logger logger = Logger.getLogger(JAXBInit.class.getName());
 
-    public String requestData(ProductWrapper productWrapper) throws IOException, JAXBException {
-        StringWriter stringWriter = new StringWriter();
-        JAXBContext context = JAXBContext.newInstance(ProductWrapper.class);
-        Marshaller marshaller = context.createMarshaller();
+    public StringWriter requestData(List list) throws IOException, JAXBException {
+        if (!list.isEmpty()) {
+            ProductWrapper productWrapper = new ProductWrapper();
+            StringWriter stringWriter = new StringWriter();
+            productWrapper.setProductList(list);
+            JAXBContext context = JAXBContext.newInstance(ProductWrapper.class);
 
-        marshaller.marshal(productWrapper, stringWriter);
-        return stringWriter.toString();
+            Marshaller marshaller = context.createMarshaller();
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+
+            marshaller.marshal(productWrapper, stringWriter);
+            marshaller.marshal(productWrapper, Paths.get("shop_1/src/main/resources/xml/product.xml").toFile());
+            return stringWriter;
+        } else {
+            return null;
+        }
+
     }
 
     public ProductWrapper responseData(String lineUnmarshall) throws JAXBException {

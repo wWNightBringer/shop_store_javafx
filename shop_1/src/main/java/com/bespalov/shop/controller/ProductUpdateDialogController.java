@@ -13,6 +13,8 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.Objects;
 
 public class ProductUpdateDialogController {
     @FXML
@@ -28,7 +30,7 @@ public class ProductUpdateDialogController {
     @FXML
     private TextField count;
     @FXML
-    private TextField condition;
+    private ChoiceBox<String> condition;
     @FXML
     private Label titleName;
     @FXML
@@ -56,12 +58,11 @@ public class ProductUpdateDialogController {
 
     @FXML
     public void initialize() {
-        year.setValue(2000);
         year.setItems(calendatInit.getListYear());
-        month.setValue("January");
         month.setItems(calendatInit.getListMonth());
-        day.setValue(1);
         day.setItems(calendatInit.getListDay());
+
+        condition.setItems(calendatInit.getCondition());
         monthName.setText(Languages.getResourceBundle().getString("month"));
         yearName.setText(Languages.getResourceBundle().getString("year"));
         dayName.setText(Languages.getResourceBundle().getString("day"));
@@ -82,10 +83,13 @@ public class ProductUpdateDialogController {
 
     public void setProduct(Product product) {
         this.product = product;
+        day.setValue(product.getIncomingDate().getDayOfMonth());
+        month.setValue(product.getIncomingDate().getMonth().toString());
+        year.setValue(product.getIncomingDate().getYear());
         title.setText(product.getTitle());
         serialNumber.setText(product.getSerialNumber());
         count.setText(product.getCount());
-        condition.setText(product.getCondition());
+        condition.setValue(product.getCondition());
     }
 
     public boolean isOkClick() {
@@ -99,7 +103,7 @@ public class ProductUpdateDialogController {
             product.setIncomingDate(LocalDate.of(year.getValue(), month.getSelectionModel().getSelectedIndex(), day.getValue()));
             product.setSerialNumber(serialNumber.getText());
             product.setCount(count.getText());
-            product.setCondition(condition.getText());
+            product.setCondition(condition.getValue());
             okClick = true;
             dialogStage.close();
         }
@@ -118,7 +122,7 @@ public class ProductUpdateDialogController {
             errorMsg += "Invalid serial number";
         if (count.getText() == null || count.getText().length() == 0)
             errorMsg += "Invalid count";
-        if (condition.getText() == null || condition.getText().length() == 0 || !isCondition())
+        if (condition.getSelectionModel() == null)
             errorMsg += "Invalid condition";
         if (errorMsg.length() == 0)
             return true;
@@ -133,17 +137,4 @@ public class ProductUpdateDialogController {
         }
     }
 
-    enum Condition {
-        Has, Progress, Empty
-    }
-
-    private boolean isCondition() {
-        for (Condition s : Condition.values()) {
-            if (condition.getText().equalsIgnoreCase(s.name())) {
-                return true;
-            }
-
-        }
-        return false;
-    }
 }

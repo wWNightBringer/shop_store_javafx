@@ -4,6 +4,7 @@ import com.bespalov.shop.MainClass;
 import com.bespalov.shop.client.Client;
 import com.bespalov.shop.config.Languages;
 import com.bespalov.shop.config.ProductData;
+import com.bespalov.shop.database_action.RemoveElement;
 import com.bespalov.shop.model.Product;
 import com.bespalov.shop.pane.EditProductPane;
 import com.bespalov.shop.pane.SearchPane;
@@ -12,10 +13,13 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
 import javax.xml.bind.JAXBException;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
+import java.util.List;
 import java.util.logging.Logger;
 
 public class ProductOverviewController {
@@ -47,18 +51,22 @@ public class ProductOverviewController {
     private EditProductPane editProductPane;
     private SearchPane searchPane;
     private Client client;
+    private RemoveElement removeElement;
+    private final String host = "192.168.0.111";
+    private final int port = 9000;
 
     public ProductOverviewController() {
         try {
             productData = new ProductData();
+
         } catch (JAXBException e) {
             e.printStackTrace();
         }
-
     }
 
     @FXML
     public void initialize() {
+
         title.setCellValueFactory(v -> v.getValue().titleProperty());
         incomingDate.setCellValueFactory(v -> v.getValue().incomingDateProperty().asString());
         serialNumber.setCellValueFactory(v -> v.getValue().serialNumberProperty());
@@ -83,11 +91,15 @@ public class ProductOverviewController {
     }
 
     @FXML
-    public void remove() {
+    public void remove() throws IOException, JAXBException, InterruptedException {
+
         int selectItem = productTable.getSelectionModel().getSelectedIndex();
-        if (selectItem >= 0)
+        if (selectItem >= 0) {
+            client = new Client(host, port);
+            client.actionToDatabase(productTable.getItems().get(selectItem), "Remove");
             productTable.getItems().remove(selectItem);
-        else {
+
+        } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.initOwner(stage);
             alert.setTitle("No selection");
@@ -100,18 +112,14 @@ public class ProductOverviewController {
     @FXML
     private void handleNewProduct() throws IOException {
         Product product = new Product();
-        client = new Client("192.168.0.111", 9000);
-        try {
-            client.sendDataForDatabase();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (JAXBException e) {
-            e.printStackTrace();
-        }
         boolean okClicked = editProductPane.showProductDialog(product);
         if (okClicked) {
-
-
+            client = new Client(host, port);
+            try {
+                client.actionToDatabase(product, "Add");
+            } catch (InterruptedException | JAXBException e) {
+                e.printStackTrace();
+            }
             ProductData.getProductList().add(product);
             logger.info("All fine");
         }
@@ -121,8 +129,19 @@ public class ProductOverviewController {
     @FXML
     private void handleEditPerson() throws IOException {
         Product product = productTable.getSelectionModel().getSelectedItem();
+        int index = productTable.getSelectionModel().getSelectedIndex();
+
         if (product != null) {
             boolean okClicked = editProductPane.showProductDialog(product);
+            client = new Client(host, port);
+            try {
+                client.actionToDatabase(product, "Update");
+            } catch (InterruptedException | IOException | JAXBException e) {
+                e.printStackTrace();
+            }
+            ProductData.getProductList().set(index, product);
+            logger.info("Update ended!");
+
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.initOwner(stage);
@@ -138,5 +157,11 @@ public class ProductOverviewController {
     @FXML
     private void handleSearchPerson() throws IOException {
         searchPane.showSearchStage();
+    }
+    @FXML
+    private void close(javafx.scene.input.KeyEvent event){
+        if(KeyCode.ESCAPE==event.getCode()){
+            System.exit(0);
+        }
     }
 }

@@ -3,6 +3,7 @@ package com.bespalov.shop;
 import com.bespalov.shop.client.Client;
 import com.bespalov.shop.config.JAXBInit;
 import com.bespalov.shop.config.Languages;
+import com.bespalov.shop.config.Paths;
 import com.bespalov.shop.controller.RootController;
 import com.bespalov.shop.model.Product;
 import com.bespalov.shop.pane.MainPane;
@@ -11,14 +12,18 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import javax.xml.bind.JAXBException;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.lang.management.GarbageCollectorMXBean;
 import java.net.Socket;
 import java.time.LocalDate;
-
+import java.util.Locale;
+//TODO create ROLLBACK
 public class MainClass extends Application {
     private Stage primaryStage;
     private BorderPane borderPane;
@@ -39,8 +44,11 @@ public class MainClass extends Application {
         primaryStage.setTitle(Languages.getResourceBundle().getString("shop"));
         initStagePane();
         mainPane.initMainPane(borderPane);
+        primaryStage.setMaximized(true);
+        primaryStage.getIcons().add(new Image(
+                new FileInputStream(java.nio.file.Paths.get("shop_1/src/main/resources/photo/images.png").toFile())));
         primaryStage.show();
-
+        System.gc();
 
     }
 

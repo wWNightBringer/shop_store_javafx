@@ -8,9 +8,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="870.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bespalov.shop.controller.ProductOverviewController">
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bespalov.shop.controller.ProductOverviewController">
     <children>
-        <SplitPane dividerPositions="0.8607784431137725" orientation="VERTICAL" prefHeight="870.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <SplitPane dividerPositions="0.8607784431137725" orientation="VERTICAL" prefHeight="670.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="428.0" prefWidth="998.0">
                     <children>
@@ -30,26 +30,26 @@
                 </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="142.0" prefWidth="998.0">
                     <children>
-                        <HBox layoutX="777.0" prefHeight="100.0" prefWidth="407.0">
+                        <HBox layoutX="590.0" layoutY="-5.0" prefHeight="90.0" prefWidth="998.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
-                                <Button fx:id="search" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleSearchPerson" prefWidth="80.0" text="Search">
+                                <Button fx:id="search" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleSearchPerson" prefHeight="25.0" prefWidth="87.0" text="Search">
                                     <HBox.margin>
-                                        <Insets right="20.0" top="30.0" />
+                                        <Insets left="20.0" top="20.0" />
                                     </HBox.margin>
                                 </Button>
                                 <Button fx:id="add" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleNewProduct" prefWidth="80.0" text="Add">
                                     <HBox.margin>
-                                        <Insets right="20.0" top="30.0" />
+                                        <Insets left="20.0" top="20.0" />
                                     </HBox.margin>
                                 </Button>
                                 <Button fx:id="update" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleEditPerson" prefWidth="80.0" text="Update">
                                     <HBox.margin>
-                                        <Insets right="20.0" top="30.0" />
+                                        <Insets left="20.0" top="20.0" />
                                     </HBox.margin>
                                 </Button>
-                                <Button fx:id="remove" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#remove" prefWidth="80.0" text="Delete">
+                                <Button fx:id="remove" contentDisplay="RIGHT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#remove" prefWidth="80.0" text="Delete" textAlignment="CENTER">
                                     <HBox.margin>
-                                        <Insets right="20.0" top="30.0" />
+                                        <Insets left="20.0" top="20.0" />
                                     </HBox.margin>
                                 </Button>
                             </children>

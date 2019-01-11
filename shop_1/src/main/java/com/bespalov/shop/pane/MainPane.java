@@ -29,6 +29,5 @@ public class MainPane {
         controller.setMainApp(stage);
 
 
-
     }
 }
