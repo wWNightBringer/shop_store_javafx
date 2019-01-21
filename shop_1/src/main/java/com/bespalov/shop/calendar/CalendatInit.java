@@ -12,7 +12,7 @@ public class CalendatInit {
     private ObservableList<Integer> listYear = FXCollections.observableArrayList(years);
     private ObservableList<String> listMonth = FXCollections.observableArrayList(months);
     private ObservableList<Integer> listDay = FXCollections.observableArrayList(days);
-    private ObservableList<String> condition = FXCollections.observableArrayList("Has", "Processing", "Empty");
+    private ObservableList<String> condition = FXCollections.observableArrayList("HAS", "PROCESSING", "EMPTY");
 
     public ObservableList<Integer> getListYear() {
         return listYear;

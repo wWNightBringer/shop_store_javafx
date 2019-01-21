@@ -7,10 +7,9 @@
         <groupId>shop_store</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>shop</artifactId>
+    <artifactId>server_shop</artifactId>
     <build>
         <plugins>
             <plugin>
@@ -23,6 +22,5 @@
             </plugin>
         </plugins>
     </build>
-
 
 </project>

@@ -1,17 +1,22 @@
 package com.bespalov.shop.controller;
 
+import com.bespalov.shop.config.ProductData;
+import com.bespalov.shop.model.Product;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.List;
 
 public class StatisticController {
     @FXML
     private BarChart<String, Integer> barChart;
 
     private Stage stage;
-    private final String[] shops = {"ATB", "VARUS", "FOXTROT", "Comfy", "Multiplex"};
-    private final Integer[] amountProducts = {5, 7, 3, 10, 2};
 
     @FXML
     private void initialize() {
@@ -22,12 +27,13 @@ public class StatisticController {
         this.stage = stage;
     }
 
-    public void setBarChart(/*ProductData productData*/) {
+    public void setBarChart(List<Product> productDataList) throws FileNotFoundException {
         XYChart.Series<String, Integer> series = new XYChart.Series<>();
-        series.setName("Shops");
-        for (int i = 0; i < shops.length; i++) {
-            series.getData().add(new XYChart.Data<>(shops[i], amountProducts[i]));
+        series.setName("Products");
+        for (Product product : productDataList) {
+            series.getData().add(new XYChart.Data<>(product.getTitle(), Integer.parseInt(product.getCount())));
         }
+
         barChart.getData().add(series);
     }
 }

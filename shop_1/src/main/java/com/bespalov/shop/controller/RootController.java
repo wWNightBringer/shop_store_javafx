@@ -22,7 +22,7 @@ import java.nio.file.Path;
 
 public class RootController {
     @FXML
-    private MenuItem newItem;
+    private MenuItem refresh;
     @FXML
     private MenuItem close;
     @FXML
@@ -42,7 +42,7 @@ public class RootController {
     private Stage stage;
     private Paths paths;
     private Client client;
-    private final String host = "192.168.0.111";
+    private final String host = Languages.getResourceBundle().getString("host");
     private final int port = 9000;
 
     @FXML
@@ -61,12 +61,6 @@ public class RootController {
         this.stage = stage;
         paths = new Paths(stage);
         statisticPane = new StatisticPane(stage);
-    }
-
-    @FXML
-    private void handleNew() {
-        ProductData.getProductList().clear();
-        paths.setPathFile(null);
     }
 
     @FXML
@@ -103,6 +97,6 @@ public class RootController {
 
     @FXML
     private void handleStatistic() throws IOException {
-        statisticPane.showStatistic();
+        statisticPane.showStatistic(ProductData.getProductList());
     }
 }

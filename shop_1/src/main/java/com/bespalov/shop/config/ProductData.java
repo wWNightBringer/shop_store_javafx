@@ -14,7 +14,6 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-//TODO product list
 public class ProductData {
     private static ObservableList<Product> productList;
     private static Client client;
@@ -23,7 +22,7 @@ public class ProductData {
     static {
         productList = FXCollections.observableArrayList();
         try {
-            client = new Client("192.168.0.111", 9000);
+            client = new Client(Languages.getResourceBundle().getString("host"), 9000);
             jaxbInit = new JAXBInit();
             client.getDataForTable();
 

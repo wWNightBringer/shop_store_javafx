@@ -16,7 +16,9 @@ import java.io.StringReader;
 import java.io.StringWriter;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalTime;
 import java.util.List;
+import java.util.Locale;
 import java.util.logging.Logger;
 
 public class JAXBInit {
@@ -30,7 +32,6 @@ public class JAXBInit {
             JAXBContext context = JAXBContext.newInstance(ProductWrapper.class);
 
             Marshaller marshaller = context.createMarshaller();
-            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 
             marshaller.marshal(productWrapper, stringWriter);
             marshaller.marshal(productWrapper, Paths.get("shop_1/src/main/resources/xml/product.xml").toFile());

@@ -3,8 +3,8 @@ package com.bespalov.shop.controller;
 import com.bespalov.shop.MainClass;
 import com.bespalov.shop.client.Client;
 import com.bespalov.shop.config.Languages;
+import com.bespalov.shop.config.Paths;
 import com.bespalov.shop.config.ProductData;
-import com.bespalov.shop.database_action.RemoveElement;
 import com.bespalov.shop.model.Product;
 import com.bespalov.shop.pane.EditProductPane;
 import com.bespalov.shop.pane.SearchPane;
@@ -13,11 +13,15 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
 import javax.xml.bind.JAXBException;
 import java.awt.event.KeyEvent;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 import java.util.logging.Logger;
@@ -37,6 +41,8 @@ public class ProductOverviewController {
     @FXML
     private TableColumn<Product, String> condition;
     @FXML
+    private ImageView refresh;
+    @FXML
     private Button search;
     @FXML
     private Button add;
@@ -51,8 +57,7 @@ public class ProductOverviewController {
     private EditProductPane editProductPane;
     private SearchPane searchPane;
     private Client client;
-    private RemoveElement removeElement;
-    private final String host = "192.168.0.111";
+    private final String host = Languages.getResourceBundle().getString("host");
     private final int port = 9000;
 
     public ProductOverviewController() {
@@ -65,7 +70,7 @@ public class ProductOverviewController {
     }
 
     @FXML
-    public void initialize() {
+    public void initialize() throws FileNotFoundException {
 
         title.setCellValueFactory(v -> v.getValue().titleProperty());
         incomingDate.setCellValueFactory(v -> v.getValue().incomingDateProperty().asString());
@@ -78,6 +83,7 @@ public class ProductOverviewController {
         count.setText(Languages.getResourceBundle().getString("count"));
         condition.setText(Languages.getResourceBundle().getString("condition"));
         search.setText(Languages.getResourceBundle().getString("search"));
+        refresh.setImage(new Image(new FileInputStream(java.nio.file.Paths.get("shop_1/src/main/resources/photo/refresh-470-474986.png").toFile())));
         add.setText(Languages.getResourceBundle().getString("new"));
         update.setText(Languages.getResourceBundle().getString("update"));
         remove.setText(Languages.getResourceBundle().getString("remove"));
@@ -110,6 +116,11 @@ public class ProductOverviewController {
     }
 
     @FXML
+    private void handleRefresh() {
+        productTable.setItems(ProductData.getProductList());
+    }
+
+    @FXML
     private void handleNewProduct() throws IOException {
         Product product = new Product();
         boolean okClicked = editProductPane.showProductDialog(product);
@@ -133,15 +144,16 @@ public class ProductOverviewController {
 
         if (product != null) {
             boolean okClicked = editProductPane.showProductDialog(product);
-            client = new Client(host, port);
-            try {
-                client.actionToDatabase(product, "Update");
-            } catch (InterruptedException | IOException | JAXBException e) {
-                e.printStackTrace();
+            if (okClicked) {
+                client = new Client(host, port);
+                try {
+                    client.actionToDatabase(product, "Update");
+                } catch (InterruptedException | IOException | JAXBException e) {
+                    e.printStackTrace();
+                }
+                ProductData.getProductList().set(index, product);
+                logger.info("Update ended!");
             }
-            ProductData.getProductList().set(index, product);
-            logger.info("Update ended!");
-
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.initOwner(stage);
@@ -158,9 +170,10 @@ public class ProductOverviewController {
     private void handleSearchPerson() throws IOException {
         searchPane.showSearchStage();
     }
+
     @FXML
-    private void close(javafx.scene.input.KeyEvent event){
-        if(KeyCode.ESCAPE==event.getCode()){
+    private void close(javafx.scene.input.KeyEvent event) {
+        if (KeyCode.ESCAPE == event.getCode()) {
             System.exit(0);
         }
     }

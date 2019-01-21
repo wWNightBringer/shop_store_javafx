@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.logging.Logger;
 
 public class ProductUpdateDialogController {
     @FXML
@@ -56,16 +57,19 @@ public class ProductUpdateDialogController {
         calendatInit = new CalendatInit();
     }
 
+    private Logger logger = Logger.getLogger(ProductUpdateDialogController.class.getName());
+
     @FXML
     public void initialize() {
         year.setItems(calendatInit.getListYear());
         month.setItems(calendatInit.getListMonth());
         day.setItems(calendatInit.getListDay());
-
         condition.setItems(calendatInit.getCondition());
+
         monthName.setText(Languages.getResourceBundle().getString("month"));
         yearName.setText(Languages.getResourceBundle().getString("year"));
         dayName.setText(Languages.getResourceBundle().getString("day"));
+
         titleName.setText(Languages.getResourceBundle().getString("title"));
         incomingDateName.setText(Languages.getResourceBundle().getString("incomingDate"));
         serialNumberName.setText(Languages.getResourceBundle().getString("serialNumber"));
@@ -89,7 +93,7 @@ public class ProductUpdateDialogController {
         title.setText(product.getTitle());
         serialNumber.setText(product.getSerialNumber());
         count.setText(product.getCount());
-        condition.setValue(product.getCondition());
+        condition.setValue("EMPTY");
     }
 
     public boolean isOkClick() {
@@ -100,7 +104,7 @@ public class ProductUpdateDialogController {
     public void isOk() {
         if (validIsRight()) {
             product.setTitle(title.getText());
-            product.setIncomingDate(LocalDate.of(year.getValue(), month.getSelectionModel().getSelectedIndex(), day.getValue()));
+            product.setIncomingDate(LocalDate.of(year.getValue(), month.getSelectionModel().getSelectedIndex()+1, day.getValue()));
             product.setSerialNumber(serialNumber.getText());
             product.setCount(count.getText());
             product.setCondition(condition.getValue());

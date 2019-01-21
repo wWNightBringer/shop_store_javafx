@@ -9,10 +9,9 @@ import javax.swing.*;
 import javax.xml.bind.JAXBException;
 import java.io.*;
 import java.net.Socket;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 public class Client {
@@ -23,8 +22,8 @@ public class Client {
     private JAXBInit jaxbInit;
     private Logger logger = Logger.getLogger(Client.class.getName());
 
-    public Client(String host, int post) throws IOException {
-        socket = new Socket(host, post);
+    public Client(String host, int port) throws IOException {
+        socket = new Socket(host, port);
         writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
         reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
     }
@@ -34,7 +33,7 @@ public class Client {
         try {
             if (socket.isConnected()) {
                 writer.println("getAll");
-                Thread.sleep(1000);
+                TimeUnit.SECONDS.sleep(2);
                 if (reader.ready()) {
                     inputData = reader.readLine();
                 }
@@ -51,7 +50,7 @@ public class Client {
     public void actionToDatabase(Product product, String action) throws InterruptedException, IOException, JAXBException {
         jaxbInit = new JAXBInit();
         if (socket.isConnected()) {
-            Thread.sleep(1000);
+            TimeUnit.SECONDS.sleep(1);
             List<Product> list = new ArrayList<>();
             list.add(product);
 
