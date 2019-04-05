@@ -29,7 +29,7 @@ public class ServerThread extends Thread {
         connection = new Connection();
     }
 
-    private void initThread(Socket socket) {
+    private synchronized void initThread(Socket socket) {
         try {
             System.out.println("Socket is connect " + socket.isConnected());
             if (socket.isConnected()) {

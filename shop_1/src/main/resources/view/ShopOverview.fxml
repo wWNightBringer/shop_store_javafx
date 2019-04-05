@@ -5,12 +5,10 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 
-<AnchorPane onKeyPressed="#close" stylesheets="@../css/DarkTheme.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bespalov.shop.controller.ProductOverviewController">
+<AnchorPane onKeyPressed="#close" stylesheets="@../css/DarkTheme.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bespalov.shop.controller.ProductOverviewController">
     <children>
         <SplitPane dividerPositions="0.8607784431137725" orientation="VERTICAL" prefHeight="670.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <items>
@@ -44,7 +42,7 @@
                                         <Insets left="20.0" top="20.0" />
                                     </HBox.margin>
                                 </Button>
-                                <Button fx:id="update" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleEditPerson" prefHeight="33.0" prefWidth="111.0" text="Update">
+                                <Button fx:id="update" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleEditPerson" prefWidth="111.0" text="Update">
                                     <HBox.margin>
                                         <Insets left="20.0" top="20.0" />
                                     </HBox.margin>
@@ -56,10 +54,6 @@
                                 </Button>
                             </children>
                         </HBox>
-                  <ImageView fx:id="refresh" fitHeight="45.0" fitWidth="49.0" layoutX="934.0" layoutY="14.0" onMouseClicked="#handleRefresh" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="20.0">
-                     <image>
-                        <Image url="@../photo/refresh-470-474986.png" />
-                     </image></ImageView>
                     </children>
                 </AnchorPane>
             </items>

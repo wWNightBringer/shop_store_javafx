@@ -16,7 +16,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.SQLData;
 
-//TODO how install database.sql
 //TODO изменить shop_id на правильный
 public class MainPane {
 
@@ -24,7 +23,4 @@ public class MainPane {
         ServerInit serverInit = new ServerInit(9000);
         serverInit.initServer();
     }
-
-
-
 }

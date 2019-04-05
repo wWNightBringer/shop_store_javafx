@@ -3,6 +3,7 @@ package com.bespalov.shop.model;
 import com.bespalov.shop.repository.ShopStoreRepository;
 import com.bespalov.shop.util.LocalDateAdapter;
 import com.bespalov.shop.validates.repository.ValidatorAnnotation;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sun.istack.internal.NotNull;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -16,18 +17,19 @@ import java.time.LocalDate;
 
 @XmlType(name = "oneProduct")
 public class Product implements ShopStoreRepository {
-    @NotNull
+    @JsonProperty(value = "title")
     private StringProperty title;
-    @NotNull
+    @JsonProperty(value = "incomingDate")
     private ObjectProperty<LocalDate> incomingDate;
-    @NotNull
+    @JsonProperty(value = "id")
     private int idProduct;
+    @JsonProperty(value = "shopId")
     private int shopId;
-    @NotNull
+    @JsonProperty(value = "serialNumber")
     private StringProperty serialNumber;
-    @NotNull
+    @JsonProperty(value = "count")
     private StringProperty count;
-    @NotNull
+    @JsonProperty(value = "condition")
     private StringProperty condition;
 
     public Product() {

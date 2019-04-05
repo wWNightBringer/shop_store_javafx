@@ -12,7 +12,6 @@
     <modules>
         <module>shop_1</module>
         <module>server_shop</module>
-        <module>client</module>
     </modules>
 
     <dependencies>

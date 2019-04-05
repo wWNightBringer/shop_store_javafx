@@ -1,29 +1,28 @@
 package com.bespalov.shop.controller;
 
-import com.bespalov.shop.MainClass;
+
 import com.bespalov.shop.client.Client;
+import com.bespalov.shop.config.Connect;
 import com.bespalov.shop.config.Languages;
-import com.bespalov.shop.config.Paths;
 import com.bespalov.shop.config.ProductData;
 import com.bespalov.shop.model.Product;
 import com.bespalov.shop.pane.EditProductPane;
 import com.bespalov.shop.pane.SearchPane;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
 import javax.xml.bind.JAXBException;
-import java.awt.event.KeyEvent;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.List;
+import java.net.Inet4Address;
+import java.net.UnknownHostException;
+import java.sql.Date;
 import java.util.logging.Logger;
 
 public class ProductOverviewController {
@@ -41,8 +40,6 @@ public class ProductOverviewController {
     @FXML
     private TableColumn<Product, String> condition;
     @FXML
-    private ImageView refresh;
-    @FXML
     private Button search;
     @FXML
     private Button add;
@@ -52,19 +49,22 @@ public class ProductOverviewController {
     private Button remove;
 
     private Logger logger = Logger.getLogger(ProductUpdateDialogController.class.getName());
+    private Connect connect;
     private ProductData productData;
     private Stage stage;
     private EditProductPane editProductPane;
     private SearchPane searchPane;
     private Client client;
-    private final String host = Languages.getResourceBundle().getString("host");
+    private final String host = Inet4Address.getLocalHost().getHostAddress();
     private final int port = 9000;
+    private ObjectMapper objectMapper;
+    private com.shop.spring_shop_store.model.Product product;
 
-    public ProductOverviewController() {
+    public ProductOverviewController() throws UnknownHostException {
         try {
             productData = new ProductData();
 
-        } catch (JAXBException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -83,7 +83,6 @@ public class ProductOverviewController {
         count.setText(Languages.getResourceBundle().getString("count"));
         condition.setText(Languages.getResourceBundle().getString("condition"));
         search.setText(Languages.getResourceBundle().getString("search"));
-        refresh.setImage(new Image(new FileInputStream(java.nio.file.Paths.get("shop_1/src/main/resources/photo/refresh-470-474986.png").toFile())));
         add.setText(Languages.getResourceBundle().getString("new"));
         update.setText(Languages.getResourceBundle().getString("update"));
         remove.setText(Languages.getResourceBundle().getString("remove"));
@@ -96,15 +95,18 @@ public class ProductOverviewController {
         searchPane = new SearchPane(stage);
     }
 
+
     @FXML
     public void remove() throws IOException, JAXBException, InterruptedException {
-
+        objectMapper = new ObjectMapper();
         int selectItem = productTable.getSelectionModel().getSelectedIndex();
         if (selectItem >= 0) {
-            client = new Client(host, port);
-            client.actionToDatabase(productTable.getItems().get(selectItem), "Remove");
+            Product removeProduct = productTable.getItems().get(selectItem);
+            product = new com.shop.spring_shop_store.model.Product();
+            product.setId(removeProduct.getIdProduct());
+            connect = new Connect("removeProductById");
+            connect.outputStream(product);
             productTable.getItems().remove(selectItem);
-
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.initOwner(stage);
@@ -116,22 +118,22 @@ public class ProductOverviewController {
     }
 
     @FXML
-    private void handleRefresh() {
-        productTable.setItems(ProductData.getProductList());
-    }
-
-    @FXML
     private void handleNewProduct() throws IOException {
-        Product product = new Product();
-        boolean okClicked = editProductPane.showProductDialog(product);
+        Product addProduct = new Product();
+        boolean okClicked = editProductPane.showProductDialog(addProduct);
         if (okClicked) {
-            client = new Client(host, port);
-            try {
-                client.actionToDatabase(product, "Add");
-            } catch (InterruptedException | JAXBException e) {
-                e.printStackTrace();
-            }
-            ProductData.getProductList().add(product);
+            product = new com.shop.spring_shop_store.model.Product();
+            product.setId(addProduct.getIdProduct());
+            product.setTitle(addProduct.getTitle());
+            product.setIncomingDate(Date.valueOf(addProduct.getIncomingDate()));
+            product.setSerialNumber(addProduct.getSerialNumber());
+            product.setCount(Integer.parseInt(addProduct.getCount()));
+            product.setCondition(addProduct.getCondition());
+            System.out.println(product);
+            connect = new Connect("addNewProduct");
+            connect.outputStream(product);
+
+            ProductData.getProductList().add(addProduct);
             logger.info("All fine");
         }
 

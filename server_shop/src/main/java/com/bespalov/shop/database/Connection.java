@@ -1,5 +1,7 @@
 package com.bespalov.shop.database;
 
+import com.bespalov.shop.config.Properties;
+
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -7,8 +9,8 @@ import java.sql.Statement;
 
 public class Connection {
     private java.sql.Connection connection;
-    private String login = "root";
-    private String password = "root";
+    private String login = Properties.getResourceBundle().getString("login");
+    private String password = Properties.getResourceBundle().getString("password");
     private String url = "jdbc:mysql://localhost:8080/server?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
     private Statement statement;
     private PreparedStatement preparedStatement;

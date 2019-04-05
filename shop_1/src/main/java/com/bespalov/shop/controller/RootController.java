@@ -18,6 +18,8 @@ import javafx.stage.Stage;
 import javax.xml.bind.JAXBException;
 import java.io.File;
 import java.io.IOException;
+import java.net.Inet4Address;
+import java.net.UnknownHostException;
 import java.nio.file.Path;
 
 public class RootController {
@@ -42,8 +44,11 @@ public class RootController {
     private Stage stage;
     private Paths paths;
     private Client client;
-    private final String host = Languages.getResourceBundle().getString("host");
+    private final String host = Inet4Address.getLocalHost().getHostAddress();
     private final int port = 9000;
+
+    public RootController() throws UnknownHostException {
+    }
 
     @FXML
     private void initialize() {

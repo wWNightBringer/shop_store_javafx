@@ -1,41 +1,31 @@
 package com.bespalov.shop.config;
 
-import com.bespalov.shop.client.Client;
 import com.bespalov.shop.model.Product;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
-import javax.swing.*;
-import javax.xml.bind.JAXBException;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
+import java.time.Instant;
+import java.time.ZoneId;
 
 public class ProductData {
     private static ObservableList<Product> productList;
-    private static Client client;
-    private static JAXBInit jaxbInit;
+    private Connect connect;
+
 
     static {
         productList = FXCollections.observableArrayList();
-        try {
-            client = new Client(Languages.getResourceBundle().getString("host"), 9000);
-            jaxbInit = new JAXBInit();
-            client.getDataForTable();
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
-    public ProductData() throws JAXBException {
-        for (Product product : jaxbInit.responseData(client.getInputData()).getProductList()) {
-            productList.add(new Product(product.getIdProduct(), product.getTitle(), product.getIncomingDate(), product.getSerialNumber(),
-                    Integer.valueOf(product.getCount()), product.getCondition()));
+    public ProductData() throws IOException {
+        connect = new Connect();
+        ObjectMapper objectMapper = new ObjectMapper();
+        com.shop.spring_shop_store.model.Product[] products = objectMapper.readValue(connect.inputStream(), com.shop.spring_shop_store.model.Product[].class);
+        for (com.shop.spring_shop_store.model.Product product : products) {
+            productList.add(new Product(product.getId(), product.getTitle(),
+                    Instant.ofEpochMilli(product.getIncomingDate().getTime()).atZone(ZoneId.systemDefault()).toLocalDate(),
+                    product.getSerialNumber(),
+                    product.getCount(), product.getCondition()));
         }
 
     }
