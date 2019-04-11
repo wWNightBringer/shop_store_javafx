@@ -3,16 +3,10 @@ package com.bespalov.shop.impl;
 import com.bespalov.shop.dao.DatabaseDAO;
 import com.bespalov.shop.database.Connection;
 import com.bespalov.shop.model.Product;
-import com.bespalov.shop.repository.ElementRepository;
 
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 //TODO this class use for get data from database

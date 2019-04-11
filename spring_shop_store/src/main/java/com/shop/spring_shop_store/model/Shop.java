@@ -8,9 +8,8 @@ import javax.persistence.Id;
 @Entity
 public class Shop {
     private int idShop;
-    private String title;
-    private String city;
     private String address;
+    private String title;
 
     @Id
     @Column(name = "ID_Shop")
@@ -23,26 +22,6 @@ public class Shop {
     }
 
     @Basic
-    @Column(name = "Title")
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    @Basic
-    @Column(name = "City")
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    @Basic
     @Column(name = "Address")
     public String getAddress() {
         return address;
@@ -50,6 +29,16 @@ public class Shop {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    @Basic
+    @Column(name = "Title")
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     @Override
@@ -60,9 +49,8 @@ public class Shop {
         Shop shop = (Shop) o;
 
         if (idShop != shop.idShop) return false;
-        if (title != null ? !title.equals(shop.title) : shop.title != null) return false;
-        if (city != null ? !city.equals(shop.city) : shop.city != null) return false;
         if (address != null ? !address.equals(shop.address) : shop.address != null) return false;
+        if (title != null ? !title.equals(shop.title) : shop.title != null) return false;
 
         return true;
     }
@@ -70,9 +58,8 @@ public class Shop {
     @Override
     public int hashCode() {
         int result = idShop;
-        result = 31 * result + (title != null ? title.hashCode() : 0);
-        result = 31 * result + (city != null ? city.hashCode() : 0);
         result = 31 * result + (address != null ? address.hashCode() : 0);
+        result = 31 * result + (title != null ? title.hashCode() : 0);
         return result;
     }
 }

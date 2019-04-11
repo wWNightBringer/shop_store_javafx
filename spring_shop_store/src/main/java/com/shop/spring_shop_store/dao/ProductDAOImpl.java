@@ -21,6 +21,7 @@ public class ProductDAORepositoryImpl {
     @Autowired
     public ProductDAORepositoryImpl(ProductDAO daoRepository) {
         this.daoRepository = daoRepository;
+        dataSource = getDataSource();
     }
 
     public Object getProductByTitle(String title) {
@@ -46,12 +47,21 @@ public class ProductDAORepositoryImpl {
     }
 
     public void addNewProduct(Product product) {
-        dataSource = getDataSource();
         jdbcTemplate = new JdbcTemplate(dataSource);
         Object[] args = {
                 product.getTitle(), product.getIncomingDate(), product.getSerialNumber(), product.getShopId(), product.getCount(), product.getCondition()
         };
         jdbcTemplate.update("INSERT INTO product(Title,Incoming_date,Serial_number,Shop_Id,Count,`Condition`) VALUES (?,?,?,?,?,?)", args);
+    }
+
+    public Product updateProduct(Product product) {
+        jdbcTemplate = new JdbcTemplate(dataSource);
+        Object[] args = {
+                product.getTitle(), product.getIncomingDate(), product.getSerialNumber(), product.getShopId(),
+                product.getCount(), product.getCondition(), product.getId()
+        };
+        jdbcTemplate.update("UPDATE product SET Title=?,Incoming_date=?,Serial_number=?,Shop_Id=?,Count=?,`Condition`=? WHERE product.ID=?", args);
+        return product;
     }
 
     private static DriverManagerDataSource getDataSource() {
