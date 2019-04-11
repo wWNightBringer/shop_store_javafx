@@ -5,22 +5,24 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#pressClose" stylesheets="@../css/DarkTheme.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bespalov.shop.controller.RootController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            onKeyPressed="#pressClose" stylesheets="@../css/DarkTheme.css" xmlns="http://javafx.com/javafx/10.0.1"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bespalov.shop.controller.RootController">
     <top>
         <MenuBar prefWidth="1000.0" BorderPane.alignment="CENTER">
             <menus>
                 <Menu fx:id="file" mnemonicParsing="false" text="File">
                     <items>
-                        <MenuItem fx:id="save" mnemonicParsing="false" onAction="#handleSave" text="Save" />
-                        <MenuItem fx:id="back" mnemonicParsing="false" onAction="#handleBack" text="Back" />
-                        <MenuItem fx:id="close" mnemonicParsing="false" onAction="#close" text="Exit" />
-
+                        <MenuItem fx:id="newShop" onAction="#handleNewShop" mnemonicParsing="false" text="New shop"/>
+                        <MenuItem fx:id="save" mnemonicParsing="false" onAction="#handleSave" text="Save"/>
+                        <MenuItem fx:id="close" mnemonicParsing="false" onAction="#close" text="Exit"/>
                     </items>
                 </Menu>
                 <Menu fx:id="help" mnemonicParsing="false" text="Help">
                     <items>
-                        <MenuItem fx:id="about" mnemonicParsing="false" onAction="#handleAbout" text="About" />
-                        <MenuItem fx:id="statistic" mnemonicParsing="false" onAction="#handleStatistic" text="Statistic" />
+                        <MenuItem fx:id="about" mnemonicParsing="false" onAction="#handleAbout" text="About"/>
+                        <MenuItem fx:id="statistic" mnemonicParsing="false" onAction="#handleStatistic"
+                                  text="Statistic"/>
                     </items>
                 </Menu>
             </menus>

@@ -1,7 +1,9 @@
 package com.bespalov.shop.controller;
 
+import com.bespalov.shop.config.Connect;
 import com.bespalov.shop.config.Languages;
 import com.bespalov.shop.model.Product;
+import com.bespalov.shop.model.Shop;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
@@ -29,9 +31,19 @@ public class InformtableController {
     private Label countName;
     @FXML
     private Label conditionName;
+    @FXML
+    private Label titleShop;
+    @FXML
+    private Label address;
+    @FXML
+    private Label titleShopName;
+    @FXML
+    private Label addressName;
 
     private Stage dialogStage;
     private Product product;
+    private Shop shop;
+
 
     @FXML
     public void initialize() {
@@ -40,6 +52,8 @@ public class InformtableController {
         serialNumberName.setText(Languages.getResourceBundle().getString("serialNumber"));
         countName.setText(Languages.getResourceBundle().getString("count"));
         conditionName.setText(Languages.getResourceBundle().getString("condition"));
+        titleShopName.setText(Languages.getResourceBundle().getString("titleShop"));
+        addressName.setText(Languages.getResourceBundle().getString("address"));
     }
 
     @FXML
@@ -72,5 +86,11 @@ public class InformtableController {
         serialNumber.setText(product.getSerialNumber());
         count.setText(product.getCount());
         condition.setText(product.getCondition());
+    }
+
+    public void setShop(Shop shop) {
+        this.shop = shop;
+        titleShop.setText(shop.getTitleShop());
+        address.setText(shop.getAddress());
     }
 }

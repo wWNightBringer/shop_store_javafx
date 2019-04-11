@@ -15,4 +15,6 @@ public interface ProductRepository {
 
     void addNewProduct(Product product) throws NoSuchMethodException;
 
+    Object updateProduct(Product product) throws NoSuchMethodException;
+
 }

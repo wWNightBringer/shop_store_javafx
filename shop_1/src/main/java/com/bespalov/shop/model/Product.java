@@ -32,15 +32,17 @@ public class Product implements ShopStoreRepository {
     @JsonProperty(value = "condition")
     private StringProperty condition;
 
+
     public Product() {
-        this(0, "", LocalDate.now(), null, 0, null);
+        this(0, "", LocalDate.now(), null, 0, 0, null);
     }
 
-    public Product(int idProduct, String title, LocalDate incomingDate, String serialNumber, int count, String condition) {
+    public Product(int idProduct, String title, LocalDate incomingDate, String serialNumber, int shopId, int count, String condition) {
         this.idProduct = idProduct;
         this.title = new SimpleStringProperty(title);
         this.incomingDate = new SimpleObjectProperty<>(incomingDate);
         this.serialNumber = new SimpleStringProperty(serialNumber);
+        this.shopId = shopId;
         this.count = new SimpleStringProperty(String.valueOf(count));
         this.condition = new SimpleStringProperty(condition);
     }

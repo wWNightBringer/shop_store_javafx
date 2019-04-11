@@ -1,14 +1,21 @@
 package com.shop.spring_shop_store.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Shop {
+    @JsonProperty(value = "idShop")
     private int idShop;
+    @JsonProperty(value = "address")
     private String address;
+    @JsonProperty(value = "title")
     private String title;
 
     @Id
@@ -61,5 +68,14 @@ public class Shop {
         result = 31 * result + (address != null ? address.hashCode() : 0);
         result = 31 * result + (title != null ? title.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Shop{" +
+                "idShop=" + idShop +
+                ", address='" + address + '\'' +
+                ", title='" + title + '\'' +
+                '}';
     }
 }

@@ -23,7 +23,6 @@ import java.lang.management.GarbageCollectorMXBean;
 import java.net.Socket;
 import java.time.LocalDate;
 import java.util.Locale;
-//TODO create ROLLBACK
 public class MainClass extends Application {
     private Stage primaryStage;
     private BorderPane borderPane;

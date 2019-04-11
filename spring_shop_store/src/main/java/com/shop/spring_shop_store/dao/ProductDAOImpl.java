@@ -4,25 +4,20 @@ import com.shop.spring_shop_store.dao.repository.ProductDAO;
 import com.shop.spring_shop_store.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
-public class ProductDAORepositoryImpl {
+@Component
+public class ProductDAOImpl {
     private DataSource dataSource;
     private JdbcTemplate jdbcTemplate;
-    private ProductDAO daoRepository;
-    private List<Product> productList;
 
     @Autowired
-    public ProductDAORepositoryImpl(ProductDAO daoRepository) {
-        this.daoRepository = daoRepository;
-        dataSource = getDataSource();
-    }
+    private ProductDAO daoRepository;
 
     public Object getProductByTitle(String title) {
         Product product = (Product) daoRepository.getProductByTitle(title);
@@ -35,7 +30,7 @@ public class ProductDAORepositoryImpl {
     }
 
     public List<Product> getAllProduct() {
-        productList = new ArrayList<>();
+        List<Product> productList = new ArrayList<>();
         for (Product product : daoRepository.findAll()) {
             productList.add(product);
         }
@@ -64,12 +59,5 @@ public class ProductDAORepositoryImpl {
         return product;
     }
 
-    private static DriverManagerDataSource getDataSource() {
-        DriverManagerDataSource managerDataSource = new DriverManagerDataSource();
-        managerDataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        managerDataSource.setUrl("jdbc:mysql://localhost:8080/server?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC");
-        managerDataSource.setUsername("root");
-        managerDataSource.setPassword("root");
-        return managerDataSource;
-    }
+
 }

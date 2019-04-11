@@ -3,6 +3,7 @@ package com.bespalov.shop.pane;
 import com.bespalov.shop.config.Languages;
 import com.bespalov.shop.controller.ProductUpdateDialogController;
 import com.bespalov.shop.controller.SearchController;
+import com.bespalov.shop.model.Product;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -37,6 +38,5 @@ public class SearchPane {
         controller.setDialogStage(dialogStage);
 
         dialogStage.showAndWait();
-
     }
 }

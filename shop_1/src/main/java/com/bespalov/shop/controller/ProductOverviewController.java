@@ -1,12 +1,13 @@
 package com.bespalov.shop.controller;
 
 
-import com.bespalov.shop.client.Client;
 import com.bespalov.shop.config.Connect;
 import com.bespalov.shop.config.Languages;
 import com.bespalov.shop.config.ProductData;
 import com.bespalov.shop.model.Product;
+import com.bespalov.shop.model.Shop;
 import com.bespalov.shop.pane.EditProductPane;
+import com.bespalov.shop.pane.InformtablePane;
 import com.bespalov.shop.pane.SearchPane;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.fxml.FXML;
@@ -20,12 +21,15 @@ import javafx.stage.Stage;
 import javax.xml.bind.JAXBException;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.Inet4Address;
 import java.net.UnknownHostException;
 import java.sql.Date;
 import java.util.logging.Logger;
 
 public class ProductOverviewController {
+
+    private Connect connect;
+    private ProductData productData;
+    private Stage stage;
 
     @FXML
     private TableView<Product> productTable;
@@ -49,21 +53,16 @@ public class ProductOverviewController {
     private Button remove;
 
     private Logger logger = Logger.getLogger(ProductUpdateDialogController.class.getName());
-    private Connect connect;
-    private ProductData productData;
-    private Stage stage;
     private EditProductPane editProductPane;
     private SearchPane searchPane;
-    private Client client;
-    private final String host = Inet4Address.getLocalHost().getHostAddress();
-    private final int port = 9000;
-    private ObjectMapper objectMapper;
+    private InformtablePane informtablePane;
+
     private com.shop.spring_shop_store.model.Product product;
+    private com.shop.spring_shop_store.model.Shop shop;
 
     public ProductOverviewController() throws UnknownHostException {
         try {
             productData = new ProductData();
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -77,11 +76,13 @@ public class ProductOverviewController {
         serialNumber.setCellValueFactory(v -> v.getValue().serialNumberProperty());
         count.setCellValueFactory(v -> v.getValue().countProperty());
         condition.setCellValueFactory(v -> v.getValue().conditionProperty());
+
         title.setText(Languages.getResourceBundle().getString("title"));
         incomingDate.setText(Languages.getResourceBundle().getString("incomingDate"));
         serialNumber.setText(Languages.getResourceBundle().getString("serialNumber"));
         count.setText(Languages.getResourceBundle().getString("count"));
         condition.setText(Languages.getResourceBundle().getString("condition"));
+
         search.setText(Languages.getResourceBundle().getString("search"));
         add.setText(Languages.getResourceBundle().getString("new"));
         update.setText(Languages.getResourceBundle().getString("update"));
@@ -98,7 +99,6 @@ public class ProductOverviewController {
 
     @FXML
     public void remove() throws IOException, JAXBException, InterruptedException {
-        objectMapper = new ObjectMapper();
         int selectItem = productTable.getSelectionModel().getSelectedIndex();
         if (selectItem >= 0) {
             Product removeProduct = productTable.getItems().get(selectItem);
@@ -129,31 +129,31 @@ public class ProductOverviewController {
             product.setSerialNumber(addProduct.getSerialNumber());
             product.setCount(Integer.parseInt(addProduct.getCount()));
             product.setCondition(addProduct.getCondition());
-            System.out.println(product);
             connect = new Connect("addNewProduct");
             connect.outputStream(product);
-
             ProductData.getProductList().add(addProduct);
             logger.info("All fine");
         }
-
     }
 
     @FXML
-    private void handleEditPerson() throws IOException {
-        Product product = productTable.getSelectionModel().getSelectedItem();
+    private void handleEditProduct() throws IOException {
+        Product updateProduct = productTable.getSelectionModel().getSelectedItem();
         int index = productTable.getSelectionModel().getSelectedIndex();
 
-        if (product != null) {
-            boolean okClicked = editProductPane.showProductDialog(product);
+        if (index > 0) {
+            boolean okClicked = editProductPane.showProductDialog(updateProduct);
             if (okClicked) {
-                client = new Client(host, port);
-                try {
-                    client.actionToDatabase(product, "Update");
-                } catch (InterruptedException | IOException | JAXBException e) {
-                    e.printStackTrace();
-                }
-                ProductData.getProductList().set(index, product);
+                product = new com.shop.spring_shop_store.model.Product();
+                product.setId(updateProduct.getIdProduct());
+                product.setTitle(updateProduct.getTitle());
+                product.setIncomingDate(Date.valueOf(updateProduct.getIncomingDate()));
+                product.setSerialNumber(updateProduct.getSerialNumber());
+                product.setCount(Integer.parseInt(updateProduct.getCount()));
+                product.setCondition(updateProduct.getCondition());
+                connect = new Connect("updateProduct");
+                connect.outputStream(product);
+                ProductData.getProductList().set(index, updateProduct);
                 logger.info("Update ended!");
             }
         } else {
@@ -169,8 +169,25 @@ public class ProductOverviewController {
     }
 
     @FXML
-    private void handleSearchPerson() throws IOException {
-        searchPane.showSearchStage();
+    private void handleSearchProduct() throws IOException {
+        int index = productTable.getSelectionModel().getSelectedIndex();
+        shop = new com.shop.spring_shop_store.model.Shop();
+        shop.setIdShop(productTable.getSelectionModel().getSelectedItem().getShopId());
+
+        connect = new Connect("getShopById");
+        ObjectMapper objectMapper = new ObjectMapper();
+        shop = objectMapper.readValue(connect.inputStream(shop), com.shop.spring_shop_store.model.Shop.class);
+
+        if (index > 0) {
+            Product searchProduct = productTable.getSelectionModel().getSelectedItem();
+            informtablePane = new InformtablePane(stage);
+            informtablePane.setProduct(searchProduct);
+            informtablePane.setShop(new Shop(shop.getIdShop(), shop.getAddress(), shop.getTitle()));
+            informtablePane.showInformtable();
+        } else {
+            searchPane.showSearchStage();
+        }
+
     }
 
     @FXML

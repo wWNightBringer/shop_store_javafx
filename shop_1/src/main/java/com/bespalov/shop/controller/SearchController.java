@@ -25,7 +25,7 @@ public class SearchController {
     private InformtablePane informtablePane;
     private Stage dialogStage;
     private Product product;
-    public boolean isOk = false;
+    private boolean isOk = false;
 
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
@@ -76,11 +76,11 @@ public class SearchController {
             alert.setContentText(error);
             alert.showAndWait();
         }
-
         return false;
     }
 
     public Product getProduct() {
         return product;
     }
+
 }

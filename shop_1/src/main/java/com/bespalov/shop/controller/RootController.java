@@ -1,10 +1,10 @@
 package com.bespalov.shop.controller;
 
 import com.bespalov.shop.client.Client;
-import com.bespalov.shop.config.JAXBInit;
 import com.bespalov.shop.config.Languages;
 import com.bespalov.shop.config.Paths;
 import com.bespalov.shop.config.ProductData;
+import com.bespalov.shop.pane.NewShopPane;
 import com.bespalov.shop.pane.StatisticPane;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -12,19 +12,14 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import javax.xml.bind.JAXBException;
-import java.io.File;
 import java.io.IOException;
 import java.net.Inet4Address;
 import java.net.UnknownHostException;
-import java.nio.file.Path;
 
 public class RootController {
-    @FXML
-    private MenuItem refresh;
     @FXML
     private MenuItem close;
     @FXML
@@ -32,15 +27,17 @@ public class RootController {
     @FXML
     private MenuItem about;
     @FXML
-    private MenuItem back;
-    @FXML
     private MenuItem save;
     @FXML
     private Menu file;
     @FXML
     private Menu help;
+    @FXML
+    private MenuItem newShop;
+
 
     private StatisticPane statisticPane;
+    private NewShopPane newShopPane;
     private Stage stage;
     private Paths paths;
     private Client client;
@@ -52,26 +49,20 @@ public class RootController {
 
     @FXML
     private void initialize() {
-        //newItem.setText(Languages.getResourceBundle().getString("menuItem.new"));
         save.setText(Languages.getResourceBundle().getString("save"));
-        back.setText(Languages.getResourceBundle().getString("back"));
         close.setText(Languages.getResourceBundle().getString("menuItem.close"));
         statistic.setText(Languages.getResourceBundle().getString("menuItem.statistic"));
         about.setText(Languages.getResourceBundle().getString("menuItem.about"));
         file.setText(Languages.getResourceBundle().getString("file"));
         help.setText(Languages.getResourceBundle().getString("help"));
+        newShop.setText(Languages.getResourceBundle().getString("newShop"));
     }
 
     public void setStage(Stage stage) {
         this.stage = stage;
         paths = new Paths(stage);
         statisticPane = new StatisticPane(stage);
-    }
-
-    @FXML
-    private void handleBack() throws IOException, JAXBException, InterruptedException {
-        client = new Client(host, port);
-        client.actionToDatabase(null, "Back");
+        newShopPane = new NewShopPane(stage);
     }
 
     @FXML
@@ -103,5 +94,10 @@ public class RootController {
     @FXML
     private void handleStatistic() throws IOException {
         statisticPane.showStatistic(ProductData.getProductList());
+    }
+
+    @FXML
+    public void handleNewShop() throws IOException {
+        newShopPane.initNewShopPane();
     }
 }
