@@ -9,116 +9,117 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="background" stylesheets="@../../css/DarkTheme.css"
-            xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.bespalov.shop.controller.InformtableController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="background" stylesheets="@../../css/DialogTheme.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bespalov.shop.controller.InformtableController">
     <children>
-        <GridPane layoutX="200.0" layoutY="155.0" prefHeight="321.0" prefWidth="600.0" AnchorPane.bottomAnchor="79.0"
-                  AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <GridPane layoutX="200.0" layoutY="155.0" prefHeight="321.0" prefWidth="600.0" AnchorPane.bottomAnchor="79.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
                 <Label fx:id="titleName" text="Title: ">
                     <font>
-                        <Font name="Georgia" size="15.0"/>
+                        <Font name="Georgia" size="15.0" />
                     </font>
                     <GridPane.margin>
-                        <Insets left="20.0"/>
+                        <Insets left="20.0" />
                     </GridPane.margin>
                 </Label>
                 <Label fx:id="incomingDateName" text="Incoming date: " GridPane.rowIndex="1">
                     <font>
-                        <Font name="Georgia" size="15.0"/>
+                        <Font name="Georgia" size="15.0" />
                     </font>
                     <GridPane.margin>
-                        <Insets left="20.0"/>
+                        <Insets left="20.0" />
                     </GridPane.margin>
                 </Label>
                 <Label fx:id="serialNumberName" text="Serial number: " GridPane.rowIndex="2">
                     <font>
-                        <Font name="Georgia" size="15.0"/>
+                        <Font name="Georgia" size="15.0" />
                     </font>
                     <GridPane.margin>
-                        <Insets left="20.0"/>
+                        <Insets left="20.0" />
                     </GridPane.margin>
                 </Label>
                 <Label fx:id="countName" text="Count: " GridPane.rowIndex="3">
                     <font>
-                        <Font name="Georgia" size="15.0"/>
+                        <Font name="Georgia" size="15.0" />
                     </font>
                     <GridPane.margin>
-                        <Insets left="20.0"/>
+                        <Insets left="20.0" />
                     </GridPane.margin>
                 </Label>
                 <Label fx:id="conditionName" text="Condition: " GridPane.rowIndex="4">
                     <font>
-                        <Font name="Georgia" size="15.0"/>
+                        <Font name="Georgia" size="15.0" />
                     </font>
                     <GridPane.margin>
-                        <Insets left="20.0"/>
+                        <Insets left="20.0" />
                     </GridPane.margin>
                 </Label>
                 <Label fx:id="title" GridPane.columnIndex="1">
                     <font>
-                        <Font name="Georgia" size="15.0"/>
+                        <Font name="Georgia Italic" size="15.0" />
                     </font>
                 </Label>
                 <Label fx:id="incomingDate" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <font>
-                        <Font name="Georgia" size="15.0"/>
+                        <Font name="Georgia Italic" size="15.0" />
                     </font>
                 </Label>
                 <Label fx:id="serialNumber" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2">
                     <font>
-                        <Font name="Georgia" size="15.0"/>
+                        <Font name="Georgia Italic" size="15.0" />
                     </font>
                 </Label>
                 <Label fx:id="count" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3">
                     <font>
-                        <Font name="Georgia" size="15.0"/>
+                        <Font name="Georgia Italic" size="15.0" />
                     </font>
                 </Label>
                 <Label fx:id="condition" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4">
                     <font>
-                        <Font name="Georgia" size="15.0"/>
+                        <Font name="Georgia Italic" size="15.0" />
                     </font>
                 </Label>
                 <Label fx:id="titleShopName" text="Title shop:" GridPane.rowIndex="5">
                     <GridPane.margin>
-                        <Insets left="20.0"/>
+                        <Insets left="20.0" />
                     </GridPane.margin>
+               <font>
+                  <Font name="Georgia" size="15.0" />
+               </font>
                 </Label>
                 <Label fx:id="addressName" text="Address:" GridPane.rowIndex="6">
                     <GridPane.margin>
-                        <Insets left="20.0"/>
+                        <Insets left="20.0" />
                     </GridPane.margin>
+               <font>
+                  <Font name="Georgia" size="15.0" />
+               </font>
                 </Label>
                 <Label fx:id="titleShop" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5">
                     <font>
-                        <Font name="Georgia" size="15.0"/>
+                        <Font name="Georgia Italic" size="15.0" />
                     </font>
                 </Label>
                 <Label fx:id="address" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="6">
                     <font>
-                        <Font name="Georgia" size="15.0"/>
+                        <Font name="Georgia Italic" size="15.0" />
                     </font>
                 </Label>
             </children>
         </GridPane>
-        <Button layoutX="360.0" layoutY="340.0" mnemonicParsing="false" onAction="#isOk" onKeyPressed="#isOkPressed"
-                prefWidth="100.0" text="Ok"/>
-        <Button layoutX="481.0" layoutY="340.0" mnemonicParsing="false" onAction="#isOk" onKeyPressed="#isCancelPressed"
-                prefWidth="100.0" text="Cancel"/>
+        <Button layoutX="360.0" layoutY="340.0" mnemonicParsing="false" onAction="#isOk" onKeyPressed="#isOkPressed" prefWidth="100.0" text="Ok" />
+        <Button layoutX="481.0" layoutY="340.0" mnemonicParsing="false" onAction="#isOk" onKeyPressed="#isCancelPressed" prefWidth="100.0" text="Cancel" />
     </children>
 </AnchorPane>

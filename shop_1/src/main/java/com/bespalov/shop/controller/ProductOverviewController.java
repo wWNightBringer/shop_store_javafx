@@ -9,6 +9,7 @@ import com.bespalov.shop.model.Shop;
 import com.bespalov.shop.pane.EditProductPane;
 import com.bespalov.shop.pane.InformtablePane;
 import com.bespalov.shop.pane.SearchPane;
+import com.bespalov.shop.pane.SettingPane;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -57,6 +58,7 @@ public class ProductOverviewController {
     private SearchPane searchPane;
     private InformtablePane informtablePane;
 
+
     private com.shop.spring_shop_store.model.Product product;
     private com.shop.spring_shop_store.model.Shop shop;
 
@@ -96,7 +98,6 @@ public class ProductOverviewController {
         searchPane = new SearchPane(stage);
     }
 
-
     @FXML
     public void remove() throws IOException, JAXBException, InterruptedException {
         int selectItem = productTable.getSelectionModel().getSelectedIndex();
@@ -118,7 +119,7 @@ public class ProductOverviewController {
     }
 
     @FXML
-    private void handleNewProduct() throws IOException {
+    private void handleNewProduct() throws IOException, NoSuchMethodException {
         Product addProduct = new Product();
         boolean okClicked = editProductPane.showProductDialog(addProduct);
         if (okClicked) {
@@ -129,6 +130,7 @@ public class ProductOverviewController {
             product.setSerialNumber(addProduct.getSerialNumber());
             product.setCount(Integer.parseInt(addProduct.getCount()));
             product.setCondition(addProduct.getCondition());
+            product.setShopId(addProduct.getShopId());
             connect = new Connect("addNewProduct");
             connect.outputStream(product);
             ProductData.getProductList().add(addProduct);
@@ -137,11 +139,10 @@ public class ProductOverviewController {
     }
 
     @FXML
-    private void handleEditProduct() throws IOException {
+    private void handleEditProduct() throws IOException, NoSuchMethodException {
         Product updateProduct = productTable.getSelectionModel().getSelectedItem();
         int index = productTable.getSelectionModel().getSelectedIndex();
-
-        if (index > 0) {
+        if (index >= 0) {
             boolean okClicked = editProductPane.showProductDialog(updateProduct);
             if (okClicked) {
                 product = new com.shop.spring_shop_store.model.Product();
@@ -151,6 +152,7 @@ public class ProductOverviewController {
                 product.setSerialNumber(updateProduct.getSerialNumber());
                 product.setCount(Integer.parseInt(updateProduct.getCount()));
                 product.setCondition(updateProduct.getCondition());
+                product.setShopId(updateProduct.getShopId());
                 connect = new Connect("updateProduct");
                 connect.outputStream(product);
                 ProductData.getProductList().set(index, updateProduct);
@@ -172,13 +174,12 @@ public class ProductOverviewController {
     private void handleSearchProduct() throws IOException {
         int index = productTable.getSelectionModel().getSelectedIndex();
         shop = new com.shop.spring_shop_store.model.Shop();
-        shop.setIdShop(productTable.getSelectionModel().getSelectedItem().getShopId());
 
-        connect = new Connect("getShopById");
-        ObjectMapper objectMapper = new ObjectMapper();
-        shop = objectMapper.readValue(connect.inputStream(shop), com.shop.spring_shop_store.model.Shop.class);
-
-        if (index > 0) {
+        if (index >= 0) {
+            shop.setIdShop(productTable.getSelectionModel().getSelectedItem().getShopId());
+            connect = new Connect("getShopById");
+            ObjectMapper objectMapper = new ObjectMapper();
+            shop = objectMapper.readValue(connect.inputStream(shop), com.shop.spring_shop_store.model.Shop.class);
             Product searchProduct = productTable.getSelectionModel().getSelectedItem();
             informtablePane = new InformtablePane(stage);
             informtablePane.setProduct(searchProduct);

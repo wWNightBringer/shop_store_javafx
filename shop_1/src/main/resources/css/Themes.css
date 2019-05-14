@@ -1,3 +1,6 @@
-.refresh {
-    -fx-background-image: url("photo/refresh-470-474986.png");
+.button {
+    background: #3498db;
+    width: 180px;
+    padding: 4px 0;
+
 }

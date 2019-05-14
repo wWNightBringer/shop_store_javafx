@@ -15,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import javax.xml.bind.JAXBException;
 import java.io.FileInputStream;
@@ -23,10 +24,14 @@ import java.lang.management.GarbageCollectorMXBean;
 import java.net.Socket;
 import java.time.LocalDate;
 import java.util.Locale;
+
 public class MainClass extends Application {
     private Stage primaryStage;
     private BorderPane borderPane;
     private MainPane mainPane;
+    private Locale locale;
+    private boolean flag;
+    private double[] screenSizeResult;
 
 
     public MainClass() throws JAXBException, IOException {
@@ -43,7 +48,6 @@ public class MainClass extends Application {
         primaryStage.setTitle(Languages.getResourceBundle().getString("shop"));
         initStagePane();
         mainPane.initMainPane(borderPane);
-        primaryStage.setMaximized(true);
         primaryStage.getIcons().add(new Image(
                 new FileInputStream(java.nio.file.Paths.get("shop_1/src/main/resources/photo/images.png").toFile())));
         primaryStage.show();
@@ -58,8 +62,8 @@ public class MainClass extends Application {
 
         RootController controller = loader.getController();
         controller.setStage(primaryStage);
-
-        Scene scene = new Scene(borderPane);
+        Scene scene = new Scene(borderPane, 1000, 600);
+        primaryStage.setFullScreen(flag);
         primaryStage.setScene(scene);
     }
 
@@ -71,4 +75,15 @@ public class MainClass extends Application {
         this.primaryStage = primaryStage;
     }
 
+    public void setLocale(Locale locale) {
+        this.locale = locale;
+    }
+
+    public void setFlag(boolean flag) {
+        this.flag = flag;
+    }
+
+    public void setScreenSizeResult(double[] screenSizeResult) {
+        this.screenSizeResult = screenSizeResult;
+    }
 }

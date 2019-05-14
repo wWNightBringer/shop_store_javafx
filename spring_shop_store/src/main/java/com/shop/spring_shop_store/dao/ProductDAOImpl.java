@@ -1,5 +1,6 @@
 package com.shop.spring_shop_store.dao;
 
+import com.shop.spring_shop_store.config.DriverManagerServer;
 import com.shop.spring_shop_store.dao.repository.ProductDAO;
 import com.shop.spring_shop_store.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,6 @@ import java.util.List;
 
 @Component
 public class ProductDAOImpl {
-    private DataSource dataSource;
     private JdbcTemplate jdbcTemplate;
 
     @Autowired
@@ -42,7 +42,7 @@ public class ProductDAOImpl {
     }
 
     public void addNewProduct(Product product) {
-        jdbcTemplate = new JdbcTemplate(dataSource);
+        jdbcTemplate = new JdbcTemplate(DriverManagerServer.getDataSource());
         Object[] args = {
                 product.getTitle(), product.getIncomingDate(), product.getSerialNumber(), product.getShopId(), product.getCount(), product.getCondition()
         };
@@ -50,7 +50,7 @@ public class ProductDAOImpl {
     }
 
     public Product updateProduct(Product product) {
-        jdbcTemplate = new JdbcTemplate(dataSource);
+        jdbcTemplate = new JdbcTemplate(DriverManagerServer.getDataSource());
         Object[] args = {
                 product.getTitle(), product.getIncomingDate(), product.getSerialNumber(), product.getShopId(),
                 product.getCount(), product.getCondition(), product.getId()

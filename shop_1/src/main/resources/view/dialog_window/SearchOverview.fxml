@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane onKeyPressed="#isCancel" prefHeight="60.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bespalov.shop.controller.SearchController">
+<AnchorPane onKeyPressed="#isCancel" prefHeight="60.0" prefWidth="400.0" styleClass="background" stylesheets="@../../css/DialogTheme.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bespalov.shop.controller.SearchController">
    <children>
       <HBox layoutX="110.0" layoutY="-20.0" prefHeight="150.0" prefWidth="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>

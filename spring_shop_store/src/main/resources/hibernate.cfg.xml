@@ -6,9 +6,12 @@
   <session-factory>
     <property name="connection.url">jdbc:mysql://localhost:8080/server</property>
     <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-      <mapping class="com.shop.spring_shop_store.model.Product"/>
+    <mapping class="com.shop.spring_shop_store.model.Product"/>
       <mapping class="com.shop.spring_shop_store.model.Shop"/>
-      <!-- <property name="connection.username"/> -->
+    <mapping class="com.shop.spring_shop_store.model.AdminAuthentication"/>
+    <mapping class="com.shop.spring_shop_store.model.AuthenticationEmployer"/>
+    <mapping class="com.shop.spring_shop_store.model.Certificate"/>
+    <!-- <property name="connection.username"/> -->
     <!-- <property name="connection.password"/> -->
 
     <!-- DB schema will be updated if needed -->

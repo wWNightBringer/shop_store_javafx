@@ -18,6 +18,16 @@ public class Shop {
     @JsonProperty(value = "title")
     private String title;
 
+    public Shop(int idShop, String address, String title) {
+        this.idShop = idShop;
+        this.address = address;
+        this.title = title;
+    }
+
+    public Shop() {
+
+    }
+
     @Id
     @Column(name = "ID_Shop")
     public int getIdShop() {

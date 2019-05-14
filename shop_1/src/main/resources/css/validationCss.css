@@ -1,0 +1,33 @@
+.background {
+    -fx-background-color: #34004a;
+}
+
+.label_login {
+    -fx-font-style: normal;
+    -fx-font-size: 14pt;
+}
+
+.button {
+    -fx-text-fill: #FFFFFF;
+    -fx-background-color: #34004a;
+    -fx-border-color: #FFFFFF;
+    -fx-border-radius: 10px;
+}
+
+.button:hover {
+    -fx-background-color: #5e5b5e;
+}
+
+.background_white {
+    -fx-background-color: white;
+}
+
+.registration {
+    -fx-text-fill: #FFFFFF;
+    -fx-background-color: #34004a;
+    -fx-border-color: #34004a;
+}
+.registration:hover {
+    -fx-text-fill: chartreuse;
+    -fx-background-color: #34004a;
+}

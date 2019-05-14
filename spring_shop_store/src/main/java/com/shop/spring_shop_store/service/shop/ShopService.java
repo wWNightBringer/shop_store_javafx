@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ShopService implements ShopRepository {
     private Logger logger = LoggerFactory.getLogger(ShopService.class);
@@ -41,5 +43,13 @@ public class ShopService implements ShopRepository {
         logger.info(String.format("== %s, %s ==", getClass().getName(), getClass().getMethod("addNewShop", Shop.class).getName()));
         logger.info(String.format("Request %s", shop));
         shopDAO.addNewShop(shop);
+    }
+
+    @Override
+    public List getAllShop() throws NoSuchMethodException {
+        logger.info(String.format("== %s, %s ==", getClass().getName(), getClass().getMethod("getAllShop").getName()));
+        List shopList = shopDAO.getAllShop();
+        logger.info(String.format("Response %s", shopList));
+        return shopList;
     }
 }

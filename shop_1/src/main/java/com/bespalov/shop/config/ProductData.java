@@ -9,14 +9,20 @@ import javafx.collections.ObservableList;
 import java.io.IOException;
 import java.time.Instant;
 import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProductData {
     private static ObservableList<Product> productList;
+    private static ObservableList<Shop> shopList;
+    private static ObservableList<String> address;
     private Connect connect;
 
 
     static {
         productList = FXCollections.observableArrayList();
+        shopList = FXCollections.observableArrayList();
+        address = FXCollections.observableArrayList();
     }
 
     public ProductData() throws IOException {
@@ -29,9 +35,24 @@ public class ProductData {
                     product.getSerialNumber(), product.getShopId(),
                     product.getCount(), product.getCondition()));
         }
+        connect = new Connect("getAllShop");
+        objectMapper = new ObjectMapper();
+        com.shop.spring_shop_store.model.Shop[] shops = objectMapper.readValue(connect.inputStream(null), com.shop.spring_shop_store.model.Shop[].class);
+        for (com.shop.spring_shop_store.model.Shop shop : shops) {
+            shopList.add(new Shop(shop.getIdShop(), shop.getAddress(), shop.getTitle()));
+            address.add(shop.getAddress());
+        }
     }
 
     public static ObservableList<Product> getProductList() {
         return productList;
+    }
+
+    public static ObservableList<Shop> getShopList() {
+        return shopList;
+    }
+
+    public static ObservableList<String> getAddressList() {
+        return address;
     }
 }

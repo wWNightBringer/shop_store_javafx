@@ -2,6 +2,7 @@ package com.bespalov.shop.controller;
 
 import com.bespalov.shop.config.Connect;
 import com.bespalov.shop.config.Languages;
+import com.bespalov.shop.model.Product;
 import com.shop.spring_shop_store.model.Shop;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -12,6 +13,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
@@ -31,6 +34,7 @@ public class NewShopController {
     private Stage dialogStage;
     private String error;
     private Connect connect;
+    private Logger logger = LoggerFactory.getLogger(NewShopController.class);
 
     public NewShopController() {
     }
@@ -46,12 +50,14 @@ public class NewShopController {
     }
 
     @FXML
-    public void pressOk() throws IOException {
+    public void pressOk() throws IOException, NoSuchMethodException {
+        logger.info(String.format("== %s ==", getClass().getName()));
         if (validIsRightData()) {
             connect = new Connect("addNewShop");
             Shop shop = new Shop();
             shop.setAddress(addressField.getText());
             shop.setTitle(titleShopField.getText());
+            logger.info(String.format("Response param(Method name %s, values: %s)", getClass().getMethod("pressOk").getName(), shop));
             connect.inputStream(shop);
             dialogStage.close();
         } else {

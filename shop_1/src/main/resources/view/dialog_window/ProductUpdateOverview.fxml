@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bespalov.shop.controller.ProductUpdateDialogController">
+<AnchorPane prefHeight="500.0" prefWidth="500.0" styleClass="background" stylesheets="@../../css/DialogTheme.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bespalov.shop.controller.ProductUpdateDialogController">
     <children>
         <GridPane layoutX="70.0" layoutY="46.0" prefHeight="410.0" prefWidth="500.0" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <columnConstraints>
@@ -26,11 +26,12 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
                 <Label fx:id="titleName" prefHeight="18.0" prefWidth="130.0" text="Title: ">
                     <font>
-                        <Font name="Georgia Italic" size="14.0" />
+                        <Font name="Ebrima" size="14.0" />
                     </font>
                     <GridPane.margin>
                         <Insets left="20.0" />
@@ -38,7 +39,7 @@
                 </Label>
                 <Label fx:id="serialNumberName" text="Serial number: " GridPane.rowIndex="2">
                     <font>
-                        <Font name="Georgia Italic" size="14.0" />
+                        <Font name="Ebrima" size="14.0" />
                     </font>
                     <GridPane.margin>
                         <Insets left="20.0" />
@@ -46,7 +47,7 @@
                 </Label>
                 <Label fx:id="countName" text="Count: " GridPane.rowIndex="3">
                     <font>
-                        <Font name="Georgia Italic" size="14.0" />
+                        <Font name="Ebrima" size="14.0" />
                     </font>
                     <GridPane.margin>
                         <Insets left="20.0" />
@@ -54,7 +55,7 @@
                 </Label>
                 <Label fx:id="conditionName" text="Condition: " GridPane.rowIndex="4">
                     <font>
-                        <Font name="Georgia Italic" size="14.0" />
+                        <Font name="Ebrima" size="14.0" />
                     </font>
                     <GridPane.margin>
                         <Insets left="20.0" />
@@ -77,75 +78,69 @@
                 </TextField>
                 <Label fx:id="incomingDateName" text="Incoming date:" GridPane.rowIndex="1">
                     <font>
-                        <Font name="Georgia Italic" size="14.0" />
+                        <Font name="Ebrima" size="14.0" />
                     </font>
                     <GridPane.margin>
                         <Insets left="20.0" />
                     </GridPane.margin>
                 </Label>
-            <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <VBox prefHeight="66.0" prefWidth="335.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <Label fx:id="yearName" text="Year: ">
+                        <Label fx:id="yearName" layoutY="4.0" text="Year: ">
                            <font>
                               <Font name="Corbel" size="14.0" />
                            </font>
-                           <HBox.margin>
-                              <Insets top="5.0" />
-                           </HBox.margin>
                         </Label>
-                              <ChoiceBox fx:id="year" prefWidth="100.0">
-                           <HBox.margin>
-                              <Insets left="50.0" />
-                           </HBox.margin>
-                              </ChoiceBox>
+                              <ChoiceBox fx:id="year" layoutX="74.0" prefHeight="26.0" prefWidth="130.0" />
                      </children>
-                  </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
+                  </AnchorPane>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <Label fx:id="monthName" text="Month:">
+                        <Label fx:id="monthName" layoutY="5.0" text="Month:">
                            <font>
                               <Font name="Corbel" size="14.0" />
                            </font>
-                           <HBox.margin>
-                              <Insets top="5.0" />
-                           </HBox.margin>
                         </Label>
-                              <ChoiceBox fx:id="month" prefWidth="100.0">
-                           <HBox.margin>
-                              <Insets left="41.0" />
-                           </HBox.margin>
-                              </ChoiceBox>
+                              <ChoiceBox fx:id="month" layoutX="74.0" prefHeight="26.0" prefWidth="130.0" />
                      </children>
-                  </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </AnchorPane>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <Label fx:id="dayName" text="Day:">
+                        <Label fx:id="dayName" layoutY="5.0" text="Day:">
                            <font>
                               <Font name="Corbel" size="14.0" />
                            </font>
-                           <HBox.margin>
-                              <Insets top="5.0" />
-                           </HBox.margin>
                         </Label>
-                              <ChoiceBox fx:id="day" prefWidth="100.0">
-                           <HBox.margin>
-                              <Insets left="56.0" />
-                           </HBox.margin>
-                              </ChoiceBox>
+                              <ChoiceBox fx:id="day" layoutX="75.0" prefHeight="26.0" prefWidth="130.0" />
                      </children>
-                  </HBox>
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </AnchorPane>
                </children>
                <padding>
                   <Insets top="5.0" />
                </padding>
             </VBox>
-            <ChoiceBox fx:id="condition" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <ChoiceBox fx:id="condition" prefHeight="26.0" prefWidth="102.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
             </ChoiceBox>
+            <Label fx:id="shopListName" text="Address" GridPane.rowIndex="5">
+               <font>
+                  <Font name="Ebrima" size="14.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="20.0" />
+               </GridPane.margin>
+            </Label>
+            <ChoiceBox fx:id="shopList" prefHeight="26.0" prefWidth="186.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             </children>
         </GridPane>
         <HBox layoutX="286.0" layoutY="410.0" prefHeight="100.0" prefWidth="225.0" AnchorPane.rightAnchor="5.0">

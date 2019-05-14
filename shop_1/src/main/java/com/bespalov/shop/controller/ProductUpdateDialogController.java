@@ -2,20 +2,20 @@ package com.bespalov.shop.controller;
 
 import com.bespalov.shop.calendar.CalendatInit;
 import com.bespalov.shop.config.Languages;
+import com.bespalov.shop.config.ProductData;
 import com.bespalov.shop.model.Product;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import com.bespalov.shop.model.Shop;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.Objects;
-import java.util.logging.Logger;
 
 public class ProductUpdateDialogController {
     @FXML
@@ -33,6 +33,8 @@ public class ProductUpdateDialogController {
     @FXML
     private ChoiceBox<String> condition;
     @FXML
+    private ChoiceBox<String> shopList;
+    @FXML
     private Label titleName;
     @FXML
     private Label incomingDateName;
@@ -43,6 +45,8 @@ public class ProductUpdateDialogController {
     @FXML
     private Label conditionName;
     @FXML
+    private Label shopListName;
+    @FXML
     private Label yearName;
     @FXML
     private Label monthName;
@@ -50,14 +54,14 @@ public class ProductUpdateDialogController {
     private Label dayName;
     private Stage dialogStage;
     private Product product;
+    private Shop shop;
     private boolean okClick = false;
     private CalendatInit calendatInit;
+    private Logger logger = LoggerFactory.getLogger(ProductUpdateDialogController.class);
 
     public ProductUpdateDialogController() {
         calendatInit = new CalendatInit();
     }
-
-    private Logger logger = Logger.getLogger(ProductUpdateDialogController.class.getName());
 
     @FXML
     public void initialize() {
@@ -65,6 +69,7 @@ public class ProductUpdateDialogController {
         month.setItems(calendatInit.getListMonth());
         day.setItems(calendatInit.getListDay());
         condition.setItems(calendatInit.getCondition());
+        shopList.setItems(ProductData.getAddressList());
 
         monthName.setText(Languages.getResourceBundle().getString("month"));
         yearName.setText(Languages.getResourceBundle().getString("year"));
@@ -75,6 +80,7 @@ public class ProductUpdateDialogController {
         serialNumberName.setText(Languages.getResourceBundle().getString("serialNumber"));
         countName.setText(Languages.getResourceBundle().getString("count"));
         conditionName.setText(Languages.getResourceBundle().getString("condition"));
+        shopListName.setText(Languages.getResourceBundle().getString("address"));
     }
 
     public Stage getDialogStage() {
@@ -85,15 +91,25 @@ public class ProductUpdateDialogController {
         this.dialogStage = dialogStage;
     }
 
-    public void setProduct(Product product) {
+    public void setProduct(Product product) throws NoSuchMethodException {
         this.product = product;
+        logger.info(String.format("== %s ==", getClass().getName()));
+        logger.info(String.format("Request param(Method name %s, values: %s)", getClass().getMethod("setProduct", Product.class).getName(), product));
+        if (product.getShopId() == 0) {
+            condition.setValue("EMPTY");
+            shopList.setValue(ProductData.getAddressList().get(0));
+        } else {
+            shopList.setValue(ProductData.getShopList().
+                    stream().filter(v -> (v.getShopId() == product.getShopId())).findFirst().get().getAddress());
+            condition.setValue(product.getCondition());
+        }
         day.setValue(product.getIncomingDate().getDayOfMonth());
         month.setValue(product.getIncomingDate().getMonth().toString());
         year.setValue(product.getIncomingDate().getYear());
         title.setText(product.getTitle());
         serialNumber.setText(product.getSerialNumber());
         count.setText(product.getCount());
-        condition.setValue("EMPTY");
+
     }
 
     public boolean isOkClick() {
@@ -101,14 +117,16 @@ public class ProductUpdateDialogController {
     }
 
     @FXML
-    public void isOk() {
+    public void isOk() throws NoSuchMethodException {
         if (validIsRight()) {
             product.setTitle(title.getText());
-            product.setIncomingDate(LocalDate.of(year.getValue(), month.getSelectionModel().getSelectedIndex()+1, day.getValue()));
+            product.setIncomingDate(LocalDate.of(year.getValue(), month.getSelectionModel().getSelectedIndex() + 1, day.getValue()));
             product.setSerialNumber(serialNumber.getText());
             product.setCount(count.getText());
             product.setCondition(condition.getValue());
+            product.setShopId(ProductData.getShopList().stream().filter(v -> (v.getAddress().equalsIgnoreCase(shopList.getValue()))).findFirst().get().getShopId());
             okClick = true;
+            logger.info(String.format("Response param(Method name %s, values: %s)", getClass().getMethod("isOk"), product));
             dialogStage.close();
         }
     }
@@ -124,7 +142,7 @@ public class ProductUpdateDialogController {
             errorMsg += "Invalid title";
         if (serialNumber.getText() == null || serialNumber.getText().length() == 0)
             errorMsg += "Invalid serial number";
-        if (count.getText() == null || count.getText().length() == 0)
+        if (count.getText() == null || count.getText().length() == 0 || Integer.parseInt(count.getText()) < 0)
             errorMsg += "Invalid count";
         if (condition.getSelectionModel() == null)
             errorMsg += "Invalid condition";

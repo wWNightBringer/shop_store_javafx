@@ -1,0 +1,42 @@
+.background {
+    -fx-background-color: linear-gradient(to right, #FEFFFF, #A7CECC);
+}
+
+.text-field {
+    -fx-background-color: -fx-text-box-border, linear-gradient(to right, #e8fcff, #A7CECC);
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-background-radius: 0;
+    -fx-text-fill: #000000;
+}
+
+.text-field:focused {
+    -fx-background-color: -fx-focus-color, linear-gradient(to right, #dcfbff, #A7CECC);
+}
+
+.label {
+    -fx-text-fill: #b30b81;
+}
+
+.button {
+    -fx-background-color: linear-gradient(to right, #dcfbff, #A7CECC);
+    -fx-border-radius: 10px;
+    -fx-text-fill: #b30b81;
+    -fx-border-color: #b30b81;
+}
+
+.button:hover {
+    -fx-background-color: #a8e1e2;
+}
+
+.choice-box {
+    -fx-background-radius: 10px;
+}
+
+.label_header {
+    -fx-font-size: 18px;
+    -fx-font-family: Constantia serif;
+}
+
+.label_extra {
+    -fx-text-fill: black;
+}

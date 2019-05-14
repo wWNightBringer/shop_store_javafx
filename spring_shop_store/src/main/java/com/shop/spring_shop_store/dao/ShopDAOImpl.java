@@ -9,6 +9,8 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class ShopDAOImpl {
@@ -41,4 +43,11 @@ public class ShopDAOImpl {
         jdbcTemplate.update("INSERT INTO shop (Address, Title) VALUES (?,?)", args);
     }
 
+    public List getAllShop() {
+        List<Shop> shopList = new ArrayList<>();
+        for (Shop shop : shopDAO.findAll()) {
+            shopList.add(new Shop(shop.getIdShop(), shop.getAddress(), shop.getTitle()));
+        }
+        return shopList;
+    }
 }

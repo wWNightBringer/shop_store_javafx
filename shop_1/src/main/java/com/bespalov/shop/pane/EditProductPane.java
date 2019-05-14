@@ -22,7 +22,7 @@ public class EditProductPane {
         this.stage = stage;
     }
 
-    public boolean showProductDialog(Product product) throws IOException {
+    public boolean showProductDialog(Product product) throws IOException, NoSuchMethodException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/view/dialog_window/ProductUpdateOverview.fxml"));
         AnchorPane anchorPane = loader.load();

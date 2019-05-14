@@ -1,7 +1,9 @@
 package com.shop.spring_shop_store.controller;
 
-import com.shop.spring_shop_store.model.Product;
-import com.shop.spring_shop_store.model.Shop;
+import com.shop.spring_shop_store.model.*;
+import com.shop.spring_shop_store.service.authenticateAdmin.AuthenticateAdminRepository;
+import com.shop.spring_shop_store.service.authenticateEmployer.AuthenticateEmployerRepository;
+import com.shop.spring_shop_store.service.certificate.CertificateProtocolRepository;
 import com.shop.spring_shop_store.service.products.ProductRepository;
 import com.shop.spring_shop_store.service.shop.ShopRepository;
 import org.slf4j.Logger;
@@ -18,13 +20,23 @@ import java.util.List;
 public class MainController {
     private ProductRepository productRepository;
     private ShopRepository shopRepository;
+    private AuthenticateEmployerRepository authenticateEmployerRepository;
+    private AuthenticateAdminRepository authenticateAdminRepository;
+    private CertificateProtocolRepository certificateProtocolRepository;
 
     private Logger logger = LoggerFactory.getLogger(MainController.class);
 
     @Autowired
-    public MainController(ProductRepository productRepository, ShopRepository shopRepository) {
+    public MainController(ProductRepository productRepository,
+                          ShopRepository shopRepository,
+                          AuthenticateEmployerRepository authenticateEmployerRepository,
+                          AuthenticateAdminRepository authenticateAdminRepository,
+                          CertificateProtocolRepository certificateProtocolRepository) {
         this.productRepository = productRepository;
         this.shopRepository = shopRepository;
+        this.authenticateEmployerRepository = authenticateEmployerRepository;
+        this.authenticateAdminRepository = authenticateAdminRepository;
+        this.certificateProtocolRepository = certificateProtocolRepository;
     }
 
     /**
@@ -90,6 +102,33 @@ public class MainController {
     public void addNewShop(@RequestParam String login, @RequestParam String password, @RequestBody Shop shop) throws NoSuchMethodException {
         if (authentication(login, password))
             shopRepository.addNewShop(shop);
+    }
+
+    @PostMapping(value = "getAllShop")
+    public List getAllShop() throws NoSuchMethodException {
+        return shopRepository.getAllShop();
+    }
+
+    /**
+     * Authentication
+     */
+    @PostMapping(value = "getUsernamePassword")
+    public Object getUsernamePassword(@RequestParam String login, @RequestParam String password, @RequestBody AuthenticationEmployer authenticationEmployer) throws NoSuchMethodException {
+        if (!authentication(login, password))
+            return Boolean.FALSE;
+        return authenticateEmployerRepository.getUsernamePassword(authenticationEmployer);
+    }
+    @PostMapping(value = "getCertificateProtocol")
+    public Object getCertificateProtocol(@RequestParam String login, @RequestParam String password, @RequestBody Certificate certificate) throws NoSuchMethodException {
+        if (!authentication(login, password))
+            return Boolean.FALSE;
+        return certificateProtocolRepository.getCertificateProtocol(certificate);
+    }
+    @PostMapping(value = "getUsernamePasswordAdmin")
+    public Object getUsernamePasswordAdmin(@RequestParam String login, @RequestParam String password, @RequestBody AdminAuthentication adminAuthentication) throws NoSuchMethodException {
+        if (!authentication(login, password))
+            return Boolean.FALSE;
+        return authenticateAdminRepository.getUsernamePasswordAdmin(adminAuthentication);
     }
 
 
